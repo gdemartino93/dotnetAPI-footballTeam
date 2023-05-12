@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace dotnetAPI_Rubrica.Repository
 {
@@ -25,14 +26,15 @@ namespace dotnetAPI_Rubrica.Repository
                               IMapper mapper)
         {
             _dbContext = dbContext;
-            secretKey = config.GetValue("ApiSetting", "secreyKey");
+            secretKey = config.GetValue<string>("ApiSettings:secretKey");
+            Console.WriteLine(secretKey);
             _roleManager = roleManager;
             _userManager = userManager;
             _mapper = mapper;
         }
-        public bool IsUniqueUser(string value)
+        public bool IsUniqueUser(string username)
         {
-            var user = _dbContext.ApplicationUsers.FirstOrDefault(u => u.UserName == value);
+            var user = _dbContext.ApplicationUsers.FirstOrDefault(u => u.UserName == username);
             if (user == null)
             {
                 return true;
@@ -61,8 +63,10 @@ namespace dotnetAPI_Rubrica.Repository
             {
                 Token = token,
                 User = _mapper.Map<UserDTO>(user),
+                Role = roles.FirstOrDefault()
             };
             return loginResponseDTO;
+
         }
 
         public async Task<UserDTO> Register(RegisterRequestDTO registerRequestDTO)
@@ -74,11 +78,10 @@ namespace dotnetAPI_Rubrica.Repository
                 Lastname = registerRequestDTO.Lastname,
                 Email = registerRequestDTO.Email
             };
-            try
-            {
-                var createdNewUser = await _userManager.CreateAsync(newUser, registerRequestDTO.Password);
-                if (createdNewUser.Succeeded)
-                {
+
+            var createdNewUser = await _userManager.CreateAsync(newUser, registerRequestDTO.Password);
+            if (createdNewUser.Succeeded)
+              {
                     //creiamo i ruoli se non esistono(da spostare in db)
                     if (!_roleManager.RoleExistsAsync("admin").GetAwaiter().GetResult())
                     {
@@ -90,35 +93,62 @@ namespace dotnetAPI_Rubrica.Repository
                     //creiamo l'oggetto da ritoranre
                     var userToReturn = _dbContext.ApplicationUsers.FirstOrDefault(u => u.UserName == registerRequestDTO.Username);
 
-                    return _mapper.Map<UserDTO>(userToReturn);
+                   return _mapper.Map<UserDTO>(userToReturn);
+                }
+            else
+            {
+                var error = createdNewUser.Errors.FirstOrDefault();
+                if (error != null)
+                {
+                    throw new ArgumentException(error.Description);
                 }
             }
-            catch (Exception)
-            {
 
-                throw;
-            }
-            return new UserDTO();
+            return null;
         }
 
-        //generiamo il token jwt
+
+
         private string GenerateJwtToken(ApplicationUser user, string secretKey)
         {
             var roles = _userManager.GetRolesAsync(user).Result;
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(secretKey);
+            var key = Encoding.ASCII.GetBytes(secretKey);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, roles.FirstOrDefault())
+            new Claim(ClaimTypes.Name, user.Id.ToString()),
+            new Claim(ClaimTypes.Role, roles.FirstOrDefault())
                 }),
-                Expires = DateTime.UtcNow.AddDays(7), //token expires
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public bool IsUniqueEmail(string email)
+        {
+            var user = _dbContext.ApplicationUsers.FirstOrDefault(u => u.Email == email);
+            if( user == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsValidEmail(string email)
+        {
+            // regex per validare l'email
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(email);
         }
     }
 }

@@ -4,9 +4,11 @@ namespace dotnetAPI_Rubrica.Repository.IRepository
 {
     public interface IUserRepository
     {
-        bool IsUniqueUser(string value);
+        bool IsUniqueUser(string username);
+        bool IsUniqueEmail(string email);
         Task<LoginResponseDTO> Login(LoginRequestDTO loginRequestDTO);
         Task<UserDTO> Register(RegisterRequestDTO registerRequestDTO);
+        bool IsValidEmail(string email);
         
     }
 }
