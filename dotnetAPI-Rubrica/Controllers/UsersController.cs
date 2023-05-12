@@ -51,6 +51,13 @@ namespace dotnetAPI_Rubrica.Controllers
                 _response.ErrorMessage.Add("Le password devono essere uguali");
                 return BadRequest(_response);
             }
+            if (!_userRepository.IsValidEmail(registerRequestDTO.Email))
+            {
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.UnprocessableEntity;
+                _response.ErrorMessage.Add("Inserisci un email valida");
+                return UnprocessableEntity(_response);
+            }
             //check if username and email already exist
             bool usernameExist = _userRepository.IsUniqueUser(registerRequestDTO.Username);
             bool emailExist = _userRepository.IsUniqueEmail(registerRequestDTO.Email);
