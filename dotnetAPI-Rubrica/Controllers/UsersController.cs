@@ -21,6 +21,8 @@ namespace dotnetAPI_Rubrica.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO loginRequestDTO)
         {
             var loginRes = await _userRepository.Login(loginRequestDTO);
@@ -41,6 +43,7 @@ namespace dotnetAPI_Rubrica.Controllers
         [HttpPost("Register")]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDTO registerRequestDTO)
         {
             //check if password matches
