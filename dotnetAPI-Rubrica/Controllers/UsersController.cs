@@ -10,6 +10,7 @@ namespace dotnetAPI_Rubrica.Controllers
 {
     [Route("api/UserAuth")]
     [ApiController]
+    [ApiVersionNeutral]
     public class UsersController : Controller
     {
         private readonly IUserRepository _userRepository;
