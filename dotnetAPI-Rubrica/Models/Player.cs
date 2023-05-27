@@ -7,7 +7,7 @@ namespace dotnetAPI_footballTeam.Models
     public class Player
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Lastname { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -15,8 +15,7 @@ namespace dotnetAPI_footballTeam.Models
         public string Role { get; set; }
         public decimal Value { get; set; }
         [ForeignKey("Team")]
-        public string? TeamId { get; set; }
-        [NotMapped]
+        public int? TeamId { get; set; }
         public Team? Team { get; set; }
     }
 }

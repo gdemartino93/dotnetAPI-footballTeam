@@ -14,40 +14,68 @@ namespace dotnetAPI_footballTeam.Repository
             _db = db;
             dbSet = _db.Set<T>();
         }
-        public void Add(T entity)
-        {
-            _db.Add(entity);
-            _db.SaveChanges();
-        }
 
-        public void Remove(T entity)
-        {
-            _db.Remove(entity);
-            _db.SaveChanges();
-        }
-
-        public T Get(Expression<Func<T, bool>> filter)
-        {
-            IQueryable<T> query = dbSet.Where(filter);
-            return query.FirstOrDefault();
-        }
-
-        public IEnumerable<T> GetAll()
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, int pageSize = 0, int currentPage = 0)
         {
             IQueryable<T> query = dbSet;
-            return query.ToList();
+            if(filter is not null)
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperties is not null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            if(pageSize > 0)
+            {
+                if(currentPage == 0)
+                {
+                    currentPage = 1;
+                }
+                query = query.Skip(pageSize * (currentPage - 1)).Take(pageSize);
+            }
+            return await query.ToListAsync();
         }
 
-        public void RemoveRange(IEnumerable<T> entities)
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter = null, bool tracked = true, string? includeProperties = null)
         {
-            _db.RemoveRange();
-            _db.SaveChanges();
+            IQueryable<T> query = dbSet;
+            if (!tracked)
+            {
+                query = query.AsNoTracking();
+            }
+            if(filter is not null)
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperties is not null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return await query.FirstOrDefaultAsync();
         }
 
-        public void Update(T entity)
+        public async Task CreateAsync(T entity)
         {
-            _db.Update(entity);
-            _db.SaveChanges();
+            dbSet.Add(entity);
+            await SaveAsync();
+        }
+
+        public async Task RemoveAsync(T entity)
+        {
+            dbSet.Remove(entity);
+            await SaveAsync();
+        }
+
+        public Task SaveAsync()
+        {
+            return _db.SaveChangesAsync();
         }
     }
 }

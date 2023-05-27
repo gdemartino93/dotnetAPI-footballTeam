@@ -22,7 +22,7 @@ namespace dotnetAPI_footballTeam.Data
             builder.Entity<Team>().HasData(
                                new Team
                                {
-                    Id = new System.Guid("8f8389e8-ca42-4d01-86c4-6ec014c329db"),
+                                   Id=1,
                     Name = "Real Madrid",
                     State = "Spagna",
                     City = "Madrid",
@@ -30,7 +30,7 @@ namespace dotnetAPI_footballTeam.Data
                 },
                                               new Team
                                               {
-                    Id = new System.Guid("da2a6671-e64b-416b-a8fb-95cd78e3dc45"),
+                                                  Id=2,
                     Name = "Ac Milan",
                     State = "Italia",
                     City = "Milano",
@@ -38,7 +38,7 @@ namespace dotnetAPI_footballTeam.Data
                 },
                                                              new Team
                                                              {
-                    Id = new System.Guid("f0d21b25-b57d-4968-abb6-a1dbba5fea9a"),
+                                                                 Id=3,
                     Name = "Chelsea",
                     State = "Inghilterra",
                     City = "London",
@@ -49,50 +49,51 @@ namespace dotnetAPI_footballTeam.Data
             builder.Entity<Player>().HasData(
                                new Player
                                {
-                    Id = Guid.NewGuid(),
+                                   Id = 1,
                     Name = "Karim",
-                    Lastname = "Benzema",
-                    DateOfBirth = new System.DateTime(1987, 12, 19),
-                    Role = "Attaccante",
-                    Value = 50,
-                    ContractExpiration = new System.DateTime(2022, 6, 30),
-                    TeamId = "8f8389e8-ca42-4d01-86c4-6ec014c329db"
-                },
+                                   Lastname = "Benzema",
+                                   DateOfBirth = new System.DateTime(1987, 12, 19),
+                                   Role = "Attaccante",
+                                   Value = 50,
+                                   ContractExpiration = new System.DateTime(2022, 6, 30),
+                                   TeamId = 1,
+                               },
                                               new Player
                                               {
-                    Id = Guid.NewGuid(),
-                    Name = "Zlatan",
-                    Lastname = "Ibrahimovic",
-                    DateOfBirth = new System.DateTime(1981, 10, 3),
-                    Role = "Attaccante",
-                    Value = 5,
-                    ContractExpiration = new System.DateTime(2021, 6, 30),
-                    TeamId = "da2a6671-e64b-416b-a8fb-95cd78e3dc45"
-                },
+                                                  Id = 2,
+                                                  Name = "Zlatan",
+                                                  Lastname = "Ibrahimovic",
+                                                  DateOfBirth = new System.DateTime(1981, 10, 3),
+                                                  Role = "Attaccante",
+                                                  Value = 5,
+                                                  ContractExpiration = new System.DateTime(2021, 6, 30),
+                                                  TeamId = 2
+                                              },
                                                              new Player
                                                              {
-                    Id = Guid.NewGuid(),
-                    Name = "N'Golo",
-                    Lastname = "Kante",
-                    DateOfBirth = new System.DateTime(1991, 3, 29),
-                    Role = "Centrocampista",
-                    Value = 100,
-                    ContractExpiration = new System.DateTime(2023, 6, 30),
-                    TeamId = "f0d21b25-b57d-4968-abb6-a1dbba5fea9a"
-                },
+                                                                 Id = 3,
+                                                                 Name = "N'Golo",
+                                                                 Lastname = "Kante",
+                                                                 DateOfBirth = new System.DateTime(1991, 3, 29),
+                                                                 Role = "Centrocampista",
+                                                                 Value = 100,
+                                                                 ContractExpiration = new System.DateTime(2023, 6, 30),
+                                                                 TeamId = 3
+                                                             },
 
                                                              new Player
                                                              {
-                                                                 Id = Guid.NewGuid(),
+                                                                 Id = 4,
                                                                  Name = "Eden",
                                                                  Lastname = "Hazard",
                                                                  DateOfBirth = new System.DateTime(1991, 1, 7),
                                                                  Role = "Centrocampista",
                                                                  Value = 100,
                                                                  ContractExpiration = new System.DateTime(2024, 6, 30),
+                                                                 TeamId = null
 
                                                              }
-                                                                            );
+                                                                            ); ;
 
 
             

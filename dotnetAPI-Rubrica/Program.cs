@@ -76,6 +76,7 @@ namespace dotnetAPI_footballTeam
             });
             //services entity
             builder.Services.AddScoped<IUserRepository,UserRepository>();
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

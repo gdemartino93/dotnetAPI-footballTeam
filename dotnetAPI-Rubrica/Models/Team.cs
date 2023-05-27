@@ -6,7 +6,7 @@ namespace dotnetAPI_Rubrica.Models
     public class Team
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string State { get; set; }
         public string City { get; set; }
