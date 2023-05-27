@@ -2,6 +2,7 @@
 {
     public interface IUnitOfWork
     {
-        
+        ITeamRepository TeamRepository { get; }
+        IPlayerRepository PlayerRepository { get; }
     }
 }

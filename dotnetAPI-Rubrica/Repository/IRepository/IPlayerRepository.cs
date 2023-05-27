@@ -1,6 +1,8 @@
-﻿namespace dotnetAPI_footballTeam.Repository.IRepository
+﻿using dotnetAPI_footballTeam.Models;
+
+namespace dotnetAPI_footballTeam.Repository.IRepository
 {
-    public class IPlayerRepository
+    public interface IPlayerRepository : IRepository<Player>
     {
     }
 }

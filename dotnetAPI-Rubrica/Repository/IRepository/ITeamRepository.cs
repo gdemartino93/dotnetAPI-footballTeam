@@ -1,6 +1,8 @@
-﻿namespace dotnetAPI_footballTeam.Repository.IRepository
+﻿using dotnetAPI_Rubrica.Models;
+
+namespace dotnetAPI_footballTeam.Repository.IRepository
 {
-    public interface ITeamRepository
+    public interface ITeamRepository : IRepository<Team>
     {
     }
 }
