@@ -12,7 +12,7 @@ using dotnetAPI_footballTeam.Data;
 namespace dotnetAPI_footballTeam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230527144620_first")]
+    [Migration("20230527191110_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -158,6 +158,59 @@ namespace dotnetAPI_footballTeam.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("dotnetAPI_Rubrica.Models.Team", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Stadium")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teams");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("8f8389e8-ca42-4d01-86c4-6ec014c329db"),
+                            City = "Madrid",
+                            Name = "Real Madrid",
+                            Stadium = "Santiago Bernabeu",
+                            State = "Spagna"
+                        },
+                        new
+                        {
+                            Id = new Guid("da2a6671-e64b-416b-a8fb-95cd78e3dc45"),
+                            City = "Milano",
+                            Name = "Ac Milan",
+                            Stadium = "San Siro",
+                            State = "Italia"
+                        },
+                        new
+                        {
+                            Id = new Guid("f0d21b25-b57d-4968-abb6-a1dbba5fea9a"),
+                            City = "London",
+                            Name = "Chelsea",
+                            Stadium = "Stamford Bridge",
+                            State = "Inghilterra"
+                        });
+                });
+
             modelBuilder.Entity("dotnetAPI_footballTeam.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -229,16 +282,17 @@ namespace dotnetAPI_footballTeam.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("dotnetAPI_footballTeam.Models.Contact", b =>
+            modelBuilder.Entity("dotnetAPI_footballTeam.Models.Player", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<DateTime?>("ContractExpiration")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Lastname")
                         .IsRequired()
@@ -248,19 +302,64 @@ namespace dotnetAPI_footballTeam.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TelephoneNumber")
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("TeamId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.ToTable("Players");
 
-                    b.ToTable("Contacts");
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c76d7031-551c-43c0-9408-136a23137be7"),
+                            ContractExpiration = new DateTime(2022, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1987, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Lastname = "Benzema",
+                            Name = "Karim",
+                            Role = "Attaccante",
+                            TeamId = "8f8389e8-ca42-4d01-86c4-6ec014c329db",
+                            Value = 50m
+                        },
+                        new
+                        {
+                            Id = new Guid("c3da1ef6-fac2-4ace-be02-0ef68910fa5d"),
+                            ContractExpiration = new DateTime(2021, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1981, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Lastname = "Ibrahimovic",
+                            Name = "Zlatan",
+                            Role = "Attaccante",
+                            TeamId = "da2a6671-e64b-416b-a8fb-95cd78e3dc45",
+                            Value = 5m
+                        },
+                        new
+                        {
+                            Id = new Guid("a32dc9c7-3076-4649-8ed6-11feec8e424d"),
+                            ContractExpiration = new DateTime(2023, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1991, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Lastname = "Kante",
+                            Name = "N'Golo",
+                            Role = "Centrocampista",
+                            TeamId = "f0d21b25-b57d-4968-abb6-a1dbba5fea9a",
+                            Value = 100m
+                        },
+                        new
+                        {
+                            Id = new Guid("333615d6-d39e-4bfb-8b56-dca8d2a35d52"),
+                            ContractExpiration = new DateTime(2024, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1991, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Lastname = "Hazard",
+                            Name = "Eden",
+                            Role = "Centrocampista",
+                            Value = 100m
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -312,17 +411,6 @@ namespace dotnetAPI_footballTeam.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("dotnetAPI_footballTeam.Models.Contact", b =>
-                {
-                    b.HasOne("dotnetAPI_footballTeam.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
                 });
 #pragma warning restore 612, 618
         }
