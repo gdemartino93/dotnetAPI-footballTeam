@@ -12,8 +12,8 @@ using dotnetAPI_footballTeam.Data;
 namespace dotnetAPI_footballTeam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230512102042_firstIdentityAndContactTable")]
-    partial class firstIdentityAndContactTable
+    [Migration("20230527144620_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

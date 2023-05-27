@@ -1,4 +1,4 @@
-﻿namespace dotnetAPI_Rubrica.Repository.IRepository
+﻿namespace dotnetAPI_footballTeam.Repository.IRepository
 {
     public interface IRepository
     {

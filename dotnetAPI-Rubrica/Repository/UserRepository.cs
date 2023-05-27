@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using dotnetAPI_Rubrica.Data;
-using dotnetAPI_Rubrica.Models;
-using dotnetAPI_Rubrica.Models.DTO;
-using dotnetAPI_Rubrica.Repository.IRepository;
+using dotnetAPI_footballTeam.Data;
+using dotnetAPI_footballTeam.Models;
+using dotnetAPI_footballTeam.Models.DTO;
+using dotnetAPI_footballTeam.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace dotnetAPI_Rubrica.Repository
+namespace dotnetAPI_footballTeam.Repository
 {
     public class UserRepository : IUserRepository
     {

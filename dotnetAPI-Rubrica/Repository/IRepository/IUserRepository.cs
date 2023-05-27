@@ -1,6 +1,6 @@
-﻿using dotnetAPI_Rubrica.Models.DTO;
+﻿using dotnetAPI_footballTeam.Models.DTO;
 
-namespace dotnetAPI_Rubrica.Repository.IRepository
+namespace dotnetAPI_footballTeam.Repository.IRepository
 {
     public interface IUserRepository
     {

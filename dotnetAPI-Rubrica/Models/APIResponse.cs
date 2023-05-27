@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace dotnetAPI_Rubrica.Models
+namespace dotnetAPI_footballTeam.Models
 {
     public class APIResponse
     {

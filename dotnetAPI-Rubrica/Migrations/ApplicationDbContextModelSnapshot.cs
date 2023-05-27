@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using dotnetAPI_Rubrica.Data;
+using dotnetAPI_footballTeam.Data;
 
 #nullable disable
 
-namespace dotnetAPI_Rubrica.Migrations
+namespace dotnetAPI_footballTeam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -155,7 +155,7 @@ namespace dotnetAPI_Rubrica.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("dotnetAPI_Rubrica.Models.ApplicationUser", b =>
+            modelBuilder.Entity("dotnetAPI_footballTeam.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -226,7 +226,7 @@ namespace dotnetAPI_Rubrica.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("dotnetAPI_Rubrica.Models.Contact", b =>
+            modelBuilder.Entity("dotnetAPI_footballTeam.Models.Contact", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -271,7 +271,7 @@ namespace dotnetAPI_Rubrica.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("dotnetAPI_Rubrica.Models.ApplicationUser", null)
+                    b.HasOne("dotnetAPI_footballTeam.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -280,7 +280,7 @@ namespace dotnetAPI_Rubrica.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("dotnetAPI_Rubrica.Models.ApplicationUser", null)
+                    b.HasOne("dotnetAPI_footballTeam.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -295,7 +295,7 @@ namespace dotnetAPI_Rubrica.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("dotnetAPI_Rubrica.Models.ApplicationUser", null)
+                    b.HasOne("dotnetAPI_footballTeam.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -304,16 +304,16 @@ namespace dotnetAPI_Rubrica.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("dotnetAPI_Rubrica.Models.ApplicationUser", null)
+                    b.HasOne("dotnetAPI_footballTeam.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("dotnetAPI_Rubrica.Models.Contact", b =>
+            modelBuilder.Entity("dotnetAPI_footballTeam.Models.Contact", b =>
                 {
-                    b.HasOne("dotnetAPI_Rubrica.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("dotnetAPI_footballTeam.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

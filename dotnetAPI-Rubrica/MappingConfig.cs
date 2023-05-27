@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using dotnetAPI_Rubrica.Models;
-using dotnetAPI_Rubrica.Models.DTO;
+using dotnetAPI_footballTeam.Models;
+using dotnetAPI_footballTeam.Models.DTO;
 
-namespace dotnetAPI_Rubrica
+namespace dotnetAPI_footballTeam
 {
     public class MappingConfig : Profile
     {

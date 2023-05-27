@@ -1,13 +1,14 @@
 
-using dotnetAPI_Rubrica.Data;
-using dotnetAPI_Rubrica.Models;
-using dotnetAPI_Rubrica.Repository;
-using dotnetAPI_Rubrica.Repository.IRepository;
+using dotnetAPI_footballTeam.Data;
+using dotnetAPI_footballTeam.Models;
+using dotnetAPI_footballTeam.Repository;
+using dotnetAPI_footballTeam.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
-namespace dotnetAPI_Rubrica
+namespace dotnetAPI_footballTeam
 {
     public class Program
     {
@@ -43,7 +44,36 @@ namespace dotnetAPI_Rubrica
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options => {
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description =
+                        "JWT Authorization header using the Bearer scheme. \r\n\r\n " +
+                        "Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\n" +
+                        "Example: \"Bearer 12345abcdef\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Scheme = "Bearer"
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header
+            },
+            new List<string>()
+        }
+    });
+
+            });
             //services entity
             builder.Services.AddScoped<IUserRepository,UserRepository>();
             var app = builder.Build();

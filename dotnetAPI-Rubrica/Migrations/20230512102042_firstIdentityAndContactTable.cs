@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace dotnetAPI_Rubrica.Migrations
+namespace dotnetAPI_footballTeam.Migrations
 {
     /// <inheritdoc />
     public partial class firstIdentityAndContactTable : Migration

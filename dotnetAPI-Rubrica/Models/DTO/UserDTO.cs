@@ -1,4 +1,4 @@
-﻿namespace dotnetAPI_Rubrica.Models.DTO
+﻿namespace dotnetAPI_footballTeam.Models.DTO
 {
     public class UserDTO
     {

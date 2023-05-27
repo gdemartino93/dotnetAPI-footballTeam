@@ -1,12 +1,11 @@
-﻿using dotnetAPI_Rubrica.Models;
+﻿using dotnetAPI_footballTeam.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace dotnetAPI_Rubrica.Data
+namespace dotnetAPI_footballTeam.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Contact> Contacts { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)

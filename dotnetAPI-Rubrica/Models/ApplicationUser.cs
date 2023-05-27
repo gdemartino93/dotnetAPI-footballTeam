@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace dotnetAPI_Rubrica.Models
+namespace dotnetAPI_footballTeam.Models
 {
     public class ApplicationUser : IdentityUser
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotnetAPI_Rubrica.Models.DTO
+namespace dotnetAPI_footballTeam.Models.DTO
 {
     public class LoginRequestDTO
     {

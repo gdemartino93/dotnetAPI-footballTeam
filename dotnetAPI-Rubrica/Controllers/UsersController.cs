@@ -1,12 +1,12 @@
-﻿using dotnetAPI_Rubrica.Data;
-using dotnetAPI_Rubrica.Models;
-using dotnetAPI_Rubrica.Models.DTO;
-using dotnetAPI_Rubrica.Repository.IRepository;
+﻿using dotnetAPI_footballTeam.Data;
+using dotnetAPI_footballTeam.Models;
+using dotnetAPI_footballTeam.Models.DTO;
+using dotnetAPI_footballTeam.Repository.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace dotnetAPI_Rubrica.Controllers
+namespace dotnetAPI_footballTeam.Controllers
 {
     [Route("api/UserAuth")]
     [ApiController]
