@@ -26,7 +26,8 @@ namespace dotnetAPI_footballTeam.Controllers.v1
         public async Task<APIResponse> GetAllPlayers()
         {
             var playersList = await _unitOfWork.PlayerRepository.GetAllAsync(includeProperties:"Team");
-            if(playersList.Count() == 0)
+            var playersListDTO = _mapper.Map<List<PlayerDTO>>(playersList);
+            if(playersList.Count == 0)
             {
                 _response.StatusCode = HttpStatusCode.OK;
                 _response.Result = "Nessun giocatore presente";
@@ -34,7 +35,7 @@ namespace dotnetAPI_footballTeam.Controllers.v1
             }
             else
             {
-                _response.Result = playersList;
+                _response.Result = playersListDTO;
                 return _response;
             }
 

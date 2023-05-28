@@ -10,7 +10,8 @@ namespace dotnetAPI_footballTeam
         public MappingConfig()
         {
             CreateMap<ApplicationUser,UserDTO>().ReverseMap();
-            CreateMap<Player,PlayerDTO>().ReverseMap();
+            CreateMap<Player,PlayerDTO>().ForMember(dest => dest.TeamName, opt => opt.MapFrom(src => src.Team.Name)).ReverseMap();
+
         }
     }
 }
