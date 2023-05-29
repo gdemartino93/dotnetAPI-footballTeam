@@ -23,10 +23,11 @@ namespace dotnetAPI_footballTeam.Controllers.v1
 
         }
         [HttpGet]
-        public async Task<APIResponse> GetAllPlayers()
+        public async Task<APIResponse> GetAllPlayersWithTeamNabe()
         {
             var playersList = await _unitOfWork.PlayerRepository.GetAllAsync(includeProperties:"Team");
-            var playersListDTO = _mapper.Map<List<PlayerDTO>>(playersList);
+            var playersListDTO = _mapper.Map<List<PlayerWithTeamNameDTO>>(playersList);
+
             if(playersList.Count == 0)
             {
                 _response.StatusCode = HttpStatusCode.OK;
@@ -39,6 +40,35 @@ namespace dotnetAPI_footballTeam.Controllers.v1
                 return _response;
             }
 
+        }
+        [HttpPost("CreatePlayer")]
+        public async Task<APIResponse> CreatePlayer(PlayerCreateDTO playerDTO)
+        {
+            try
+            {
+                Player newPlayer = _mapper.Map<Player>(playerDTO);
+                if(playerDTO.Value <= 0 && (playerDTO.TeamId is not null || playerDTO.TeamId != 0))
+                {
+                    _response.StatusCode = HttpStatusCode.BadRequest;
+                    _response.IsSuccess = false;
+                    _response.ErrorMessage.Add("Il giocatore con una squadra deve avere un valore maggiore di 0.");
+                }
+                await _unitOfWork.PlayerRepository.CreateAsync(newPlayer);
+                _response.IsSuccess = true;
+                _response.StatusCode = HttpStatusCode.Created;
+                return _response;
+            }
+            catch (Exception e)
+            {
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.IsSuccess = false;
+               foreach(var err in e.Message.Split('\n'))
+                {
+                    _response.ErrorMessage.Add(err);
+                }
+               return _response;
+            }
+            
         }
     }
 }
