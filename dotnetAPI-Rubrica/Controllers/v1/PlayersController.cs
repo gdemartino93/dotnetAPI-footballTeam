@@ -145,6 +145,33 @@ namespace dotnetAPI_footballTeam.Controllers.v1
 
 
         }
-
+        [HttpPut("ChangeTeam")]
+        public async Task<APIResponse> ChangeTeam(int id, int idNewTeam)
+        {
+            var player = await _unitOfWork.PlayerRepository.GetAsync(p => p.Id == id);
+            if(player is null)
+            {
+                _response.IsSuccess = true;
+                _response.StatusCode = HttpStatusCode.NotFound;
+                _response.ErrorMessage.Add("Nessun giocatore trovato");
+                return _response;
+            }
+            var teamsAvaible = await _unitOfWork.TeamRepository.GetAllAsync();
+            foreach(var team in teamsAvaible)
+            {
+                if( team.Id == idNewTeam)
+                {
+                    player.TeamId = idNewTeam;
+                    await _unitOfWork.PlayerRepository.UpdateAsync(player);
+                    _response.IsSuccess = true;
+                    _response.StatusCode = HttpStatusCode.OK;
+                    return _response;
+                }
+            }
+            _response.IsSuccess = true;
+            _response.StatusCode = HttpStatusCode.NotFound;
+            _response.ErrorMessage.Add("Team non trovato");
+            return _response;
+        }
     }
 }
