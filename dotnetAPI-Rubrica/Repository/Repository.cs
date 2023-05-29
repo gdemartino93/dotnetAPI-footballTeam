@@ -77,5 +77,10 @@ namespace dotnetAPI_footballTeam.Repository
         {
             return _db.SaveChangesAsync();
         }
+        public async Task UpdateAsync(T entity)
+        {
+            dbSet.Update(entity);
+            await SaveAsync();
+        }
     }
 }

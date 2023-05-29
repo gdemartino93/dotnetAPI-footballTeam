@@ -4,6 +4,7 @@ using dotnetAPI_footballTeam.Models.DTO.PlayersDTO;
 using dotnetAPI_footballTeam.Repository.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using System.Net;
 
 namespace dotnetAPI_footballTeam.Controllers.v1
@@ -109,5 +110,41 @@ namespace dotnetAPI_footballTeam.Controllers.v1
             _response.Result = playersWithNoTeamDTO;
             return _response;
         }
+        [HttpPut("ExtendContract")]
+        public async Task<APIResponse> ExtendPlayerContract(int id,DateTime newExpiringDate)
+        {
+            var player  = await _unitOfWork.PlayerRepository.GetAsync(p => p.Id == id);
+            if(player is null)
+            {
+                _response.IsSuccess = true;
+                _response.StatusCode = HttpStatusCode.NotFound;
+                _response.Result = "Giocatore non trovato";
+                return _response;
+            }
+            if(player.ContractExpiration <  DateTime.UtcNow)
+            {
+                _response.IsSuccess = true;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.ErrorMessage.Add("Il contratto del giocatore è già scaduto");
+                return _response;
+            }
+            if(newExpiringDate <= DateTime.UtcNow)
+            {
+                _response.IsSuccess = true;
+                _response.StatusCode = HttpStatusCode.UnprocessableEntity;
+                _response.ErrorMessage.Add($"La nuova data non può essere precedente a {DateTime.Now}");
+                return _response;
+
+            }
+            player.ContractExpiration = newExpiringDate;
+            await _unitOfWork.PlayerRepository.UpdateAsync(player);
+            _response.IsSuccess = true;
+            _response.StatusCode = HttpStatusCode.OK;
+            return _response;
+
+
+
+        }
+
     }
 }
