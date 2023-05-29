@@ -1,9 +1,6 @@
-﻿using dotnetAPI_Rubrica.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace dotnetAPI_footballTeam.Models.DTO.PlayersDTO
+﻿namespace dotnetAPI_footballTeam.Models.DTO.PlayersDTO
 {
-    public class PlayerWithTeamNameDTO
+    public class PlayerWithoutTeamDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -12,6 +9,5 @@ namespace dotnetAPI_footballTeam.Models.DTO.PlayersDTO
         public DateTime? ContractExpiration { get; set; }
         public string Role { get; set; }
         public decimal Value { get; set; }
-        public string? TeamName { get; set; } 
     }
 }

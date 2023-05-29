@@ -23,7 +23,7 @@ namespace dotnetAPI_footballTeam.Controllers.v1
 
         }
         [HttpGet]
-        public async Task<APIResponse> GetAllPlayersWithTeamNabe()
+        public async Task<APIResponse> GetAllPlayersWithTeamName()
         {
             var playersList = await _unitOfWork.PlayerRepository.GetAllAsync(includeProperties:"Team");
             var playersListDTO = _mapper.Map<List<PlayerWithTeamNameDTO>>(playersList);
@@ -69,6 +69,45 @@ namespace dotnetAPI_footballTeam.Controllers.v1
                return _response;
             }
             
+        }
+        [HttpDelete("DeletePlayer")]
+        public async Task<APIResponse> DeletePlayer(int id)
+        {
+            var player = await _unitOfWork.PlayerRepository.GetAsync(p => p.Id == id);
+            if(player is null)
+            {
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.NotFound;
+                return _response;
+            }
+            await _unitOfWork.PlayerRepository.RemoveAsync(player);
+            _response.IsSuccess = true;
+            _response.StatusCode = HttpStatusCode.OK;
+            _response.Result = "Giocatore eliminato";
+            return _response;
+        }
+        [HttpGet("GetPlayerWithNoTeam")]
+        public async Task<APIResponse> GetPlayerWithNoTeam()
+        {
+            List<Player> playersWithNoTeam = await _unitOfWork.PlayerRepository.GetAllAsync(p => p.TeamId == null);
+            if(playersWithNoTeam is null)
+            {
+                _response.IsSuccess =false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                return _response;
+            }
+            if(playersWithNoTeam.Count == 0)
+            {
+                _response.Result = "Non ci sono giocatori svincolati";
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+                return _response;
+            }
+            var playersWithNoTeamDTO = _mapper.Map<List<PlayerWithoutTeamDTO>>(playersWithNoTeam);
+            _response.IsSuccess = true;
+            _response.StatusCode = HttpStatusCode.OK;
+            _response.Result = playersWithNoTeamDTO;
+            return _response;
         }
     }
 }
