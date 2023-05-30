@@ -90,7 +90,10 @@ namespace dotnetAPI_footballTeam
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors(options =>
+            {
+                options.WithOrigins("*").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            });
             app.UseAuthorization();
 
 
