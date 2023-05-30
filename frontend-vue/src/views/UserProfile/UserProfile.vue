@@ -60,7 +60,16 @@ import { useAuthStore } from '../../stores/auth';
             this.authStore.EditNameAndLastname(this.form);
   }
     },
-    
+    watch: {
+    'authStore.editSuccess': function(newValue) {
+      if (newValue) {
+        setTimeout(() => {
+          this.authStore.editSuccess = undefined;
+          router.push('/') // Reimposta la variabile editSuccess su false dopo 3 secondi (puoi modificare il tempo a tuo piacimento)
+        }, 3000);
+      }
+    }
+  }
   };
   </script>
   
