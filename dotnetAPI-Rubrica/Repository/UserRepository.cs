@@ -3,6 +3,7 @@ using dotnetAPI_footballTeam.Data;
 using dotnetAPI_footballTeam.Models;
 using dotnetAPI_footballTeam.Models.DTO;
 using dotnetAPI_footballTeam.Repository.IRepository;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -149,6 +150,17 @@ namespace dotnetAPI_footballTeam.Repository
             string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             Regex regex = new Regex(pattern);
             return regex.IsMatch(email);
+        }
+
+        public async Task<UserDTO> GetUserByEmail(string email)
+        {
+            var user =  _dbContext.ApplicationUsers.FirstOrDefault(u => u.Email == email);
+            if( user == null )
+            {
+                return null;
+            }
+             UserDTO userDTO = _mapper.Map<UserDTO>(user);
+             return userDTO;
         }
     }
 }

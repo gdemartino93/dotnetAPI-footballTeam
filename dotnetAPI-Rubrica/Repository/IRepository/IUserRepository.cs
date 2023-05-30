@@ -9,6 +9,7 @@ namespace dotnetAPI_footballTeam.Repository.IRepository
         Task<LoginResponseDTO> Login(LoginRequestDTO loginRequestDTO);
         Task<UserDTO> Register(RegisterRequestDTO registerRequestDTO);
         bool IsValidEmail(string email);
+        Task<UserDTO> GetUserByEmail(string email);
         
     }
 }

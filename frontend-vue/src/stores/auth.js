@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import router from "../router";
 
 export const useAuthStore = defineStore("auth", {
     // nello state si ineriscono le variabili
@@ -25,7 +26,7 @@ export const useAuthStore = defineStore("auth", {
                 confirmPassword: data.confirmPassword,
                 email: data.email,
               });
-              this.router.push('/');
+              router.push('/')
             } catch (error) {
                 this.authErrorsRegister = error.response.data.errorMessage[0];
             }
@@ -38,14 +39,14 @@ export const useAuthStore = defineStore("auth", {
                     password : data.password
                 });
                 this.authUser = data;
-                this.router.push('/');
+                router.push('/')
             } catch (error) {
                 this.authErrorsLogin = error.response.data.errorMessage[0]
             }
         },
         logout(){
             this.authUser = null;
-            this.router.push = ('/');
+            router.push('/')
             console.log("logout")
         }
 

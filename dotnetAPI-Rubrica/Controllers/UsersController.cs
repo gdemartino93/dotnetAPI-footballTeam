@@ -93,5 +93,21 @@ namespace dotnetAPI_footballTeam.Controllers
             }
             return null;
         }
+        [HttpGet("GetUser")]
+        public async Task<APIResponse> GetUserByEmail(string email)
+        {
+           var user = await _userRepository.GetUserByEmail(email);
+            if(user is null)
+            {
+                _response.StatusCode = HttpStatusCode.NotFound;
+                _response.IsSuccess = false;
+                _response.ErrorMessage.Add("Utente non trovato");
+                return _response;
+            }
+            _response.StatusCode=HttpStatusCode.OK;
+            _response.Result =user;
+            _response.IsSuccess = true;
+            return _response;
+        }
     }
 }
