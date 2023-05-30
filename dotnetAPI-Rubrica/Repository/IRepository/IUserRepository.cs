@@ -10,6 +10,7 @@ namespace dotnetAPI_footballTeam.Repository.IRepository
         Task<UserDTO> Register(RegisterRequestDTO registerRequestDTO);
         bool IsValidEmail(string email);
         Task<UserDTO> GetUserByUsername(string username);
+        Task<UserDTO> EditNameAndLastnameOfUser(UserDTO user);
         
     }
 }

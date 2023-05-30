@@ -109,5 +109,25 @@ namespace dotnetAPI_footballTeam.Controllers
             _response.IsSuccess = true;
             return _response;
         }
+        [HttpPut("EditUserNameAndLastname")]
+        public async Task<APIResponse> EditNameAndLastnameOfUser (UserDTO user)
+        {
+            try
+            {
+                await _userRepository.EditNameAndLastnameOfUser(user);
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+                _response.Result = user;
+                return _response;
+            }
+            catch (Exception ex)
+            {
+                _response.ErrorMessage.Add(ex.ToString());
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                return _response;
+            }
+
+        }
     }
 }

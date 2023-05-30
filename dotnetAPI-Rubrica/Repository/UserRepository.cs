@@ -152,15 +152,36 @@ namespace dotnetAPI_footballTeam.Repository
             return regex.IsMatch(email);
         }
 
-        public async Task<UserDTO> GetUserByUsername(string username)
+        public Task<UserDTO> GetUserByUsername(string username)
         {
             var user =  _dbContext.ApplicationUsers.FirstOrDefault(u => u.UserName == username);
             if( user == null )
             {
-                return null;
+                return Task.FromResult<UserDTO>(null);
             }
              UserDTO userDTO = _mapper.Map<UserDTO>(user);
-             return userDTO;
+             return Task.FromResult(userDTO);
+        }
+        public async Task<UserDTO> EditNameAndLastnameOfUser(UserDTO user)
+        {
+            try
+            {
+                var userApplication = _dbContext.ApplicationUsers.Where(u => u.UserName == user.Username).FirstOrDefault();
+                ;
+                if( userApplication == null )
+                {
+                    throw new Exception("User non trovato");
+                }
+                userApplication.Name = user.Name;
+                userApplication.Lastname = user.Lastname;
+                await _dbContext.SaveChangesAsync();
+                return _mapper.Map<UserDTO>(userApplication);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"Eccezione:{ex.Message}");
+            }
         }
     }
 }
