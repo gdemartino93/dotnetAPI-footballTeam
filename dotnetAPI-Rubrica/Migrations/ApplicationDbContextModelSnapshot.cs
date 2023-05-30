@@ -194,7 +194,7 @@ namespace dotnetAPI_footballTeam.Migrations
                         new
                         {
                             Id = 1,
-                            ApplicationUserId = "07582b52-97e9-48bd-897b-3e87144ab035",
+                            ApplicationUserId = "70b76440-7470-44ee-a34e-8339ed2c844d",
                             City = "Madrid",
                             Name = "Real Madrid",
                             Stadium = "Santiago Bernabeu",
@@ -203,7 +203,7 @@ namespace dotnetAPI_footballTeam.Migrations
                         new
                         {
                             Id = 2,
-                            ApplicationUserId = "b5777d27-49c9-4999-951b-a33ddc4f65aa",
+                            ApplicationUserId = "eb6fe828-ac5a-4f9e-b7e5-f8e2729f3b8d",
                             City = "Milano",
                             Name = "Ac Milan",
                             Stadium = "San Siro",
@@ -212,7 +212,7 @@ namespace dotnetAPI_footballTeam.Migrations
                         new
                         {
                             Id = 3,
-                            ApplicationUserId = "eeab3023-3f38-4839-95b4-bfb4bbe9c466",
+                            ApplicationUserId = "fc20aa2e-b2ad-41fa-9f8c-7924445ca387",
                             City = "Londra",
                             Name = "Chelsea",
                             Stadium = "Stamford Bridge",
@@ -270,6 +270,9 @@ namespace dotnetAPI_footballTeam.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");

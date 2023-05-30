@@ -8,6 +8,8 @@ namespace dotnetAPI_footballTeam.Models
     {
         public string? Name { get; set; }
         public string? Lastname { get; set; }
+        [ForeignKey("Team")]
+        public int? TeamId { get; set; }
         public Team? Team { get; set; }
 
 

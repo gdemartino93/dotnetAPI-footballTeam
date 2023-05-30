@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using dotnetAPI_footballTeam.Data;
 using dotnetAPI_footballTeam.Models;
 using dotnetAPI_footballTeam.Models.DTO;
 using dotnetAPI_footballTeam.Repository.IRepository;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -183,5 +187,55 @@ namespace dotnetAPI_footballTeam.Repository
                 throw new Exception($"Eccezione:{ex.Message}");
             }
         }
+
+        public async Task<bool> HasTeam(string username)
+        {
+            var user =  _dbContext.ApplicationUsers.Where(u => u.UserName == username).FirstOrDefault() ?? throw new Exception("Utente non trovato");
+
+            if(user.TeamId is not null && user.TeamId != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public List<UserDTO> GetAllUsers()
+        {
+            var users = _dbContext.ApplicationUsers.ToList();
+            return _mapper.Map<List<UserDTO>>(users);
+        }
+
+        public async Task<IQueryable<UserDTO>> GetAllAsync(Expression<Func<UserDTO, bool>> filter = null, string includeProperties = "", int pageSize = 0, int currentPage = 0)
+        {
+            IQueryable<ApplicationUser> query = _dbContext.Users;
+
+
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                query = includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Aggregate(query, (current, includeProperty) => current.Include(includeProperty.Trim()));
+            }
+
+            if (filter != null)
+            {
+                var userFilter = _mapper.Map<Expression<Func<ApplicationUser, bool>>>(filter);
+                query = query.Where(userFilter);
+            }
+
+            IQueryable<UserDTO> result = query.ProjectTo<UserDTO>(_mapper.ConfigurationProvider);
+
+            if (pageSize > 0 && currentPage > 0)
+            {
+                result = result.Skip((currentPage - 1) * pageSize).Take(pageSize);
+            }
+
+            return await Task.FromResult(result);
+        }
+
+
     }
 }

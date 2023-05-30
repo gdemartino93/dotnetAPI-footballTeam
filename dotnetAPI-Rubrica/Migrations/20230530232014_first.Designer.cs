@@ -12,8 +12,8 @@ using dotnetAPI_footballTeam.Data;
 namespace dotnetAPI_footballTeam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230530221304_UserTeamRel1to1")]
-    partial class UserTeamRel1to1
+    [Migration("20230530232014_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -244,6 +244,9 @@ namespace dotnetAPI_footballTeam.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");

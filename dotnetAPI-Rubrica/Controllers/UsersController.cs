@@ -129,5 +129,25 @@ namespace dotnetAPI_footballTeam.Controllers
             }
 
         }
+        [HttpGet("GetListOfUsers")]
+        public async Task<APIResponse> GetListOfUsers()
+        {
+            try
+            {
+                var users = _userRepository.GetAllAsync(includeProperties: "Team");
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+                _response.Result = users;
+                return _response;
+            }
+            catch (Exception ex)
+            {
+                _response.ErrorMessage.Add(ex.ToString());
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                return _response;
+            }
+
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace dotnetAPI_footballTeam.Models.DTO
+﻿using dotnetAPI_Rubrica.Models;
+
+namespace dotnetAPI_footballTeam.Models.DTO
 {
     public class UserDTO
     {
@@ -7,5 +9,7 @@
         public string Email { get; set; }
         public string? Name { get; set; }
         public string? Lastname { get; set; }
+        public int? TeamId { get; set; }
+        public string? TeamName { get; set; }
     }
 }

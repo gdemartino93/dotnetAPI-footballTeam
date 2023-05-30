@@ -1,4 +1,7 @@
-﻿using dotnetAPI_footballTeam.Models.DTO;
+﻿using dotnetAPI_footballTeam.Models;
+using dotnetAPI_footballTeam.Models.DTO;
+using dotnetAPI_Rubrica.Models;
+using System.Linq.Expressions;
 
 namespace dotnetAPI_footballTeam.Repository.IRepository
 {
@@ -11,6 +14,10 @@ namespace dotnetAPI_footballTeam.Repository.IRepository
         bool IsValidEmail(string email);
         Task<UserDTO> GetUserByUsername(string username);
         Task<UserDTO> EditNameAndLastnameOfUser(UserDTO user);
-        
+        Task<bool> HasTeam(string teamName);
+        List<UserDTO> GetAllUsers();
+        Task<IQueryable<UserDTO>> GetAllAsync(Expression<Func<UserDTO, bool>> filter = null, string includeProperties = "", int pageSize = 0, int currentPage = 0);
+
+
     }
 }

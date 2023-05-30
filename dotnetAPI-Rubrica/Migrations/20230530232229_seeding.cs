@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace dotnetAPI_footballTeam.Migrations
 {
     /// <inheritdoc />
-    public partial class seedingEntityWithRelationship : Migration
+    public partial class seeding : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,9 +23,9 @@ namespace dotnetAPI_footballTeam.Migrations
                 columns: new[] { "Id", "ApplicationUserId", "City", "Name", "Stadium", "State" },
                 values: new object[,]
                 {
-                    { 1, "07582b52-97e9-48bd-897b-3e87144ab035", "Madrid", "Real Madrid", "Santiago Bernabeu", "Spagna" },
-                    { 2, "b5777d27-49c9-4999-951b-a33ddc4f65aa", "Milano", "Ac Milan", "San Siro", "Italia" },
-                    { 3, "eeab3023-3f38-4839-95b4-bfb4bbe9c466", "Londra", "Chelsea", "Stamford Bridge", "Inghilterra" }
+                    { 1, "70b76440-7470-44ee-a34e-8339ed2c844d", "Madrid", "Real Madrid", "Santiago Bernabeu", "Spagna" },
+                    { 2, "eb6fe828-ac5a-4f9e-b7e5-f8e2729f3b8d", "Milano", "Ac Milan", "San Siro", "Italia" },
+                    { 3, "fc20aa2e-b2ad-41fa-9f8c-7924445ca387", "Londra", "Chelsea", "Stamford Bridge", "Inghilterra" }
                 });
 
             migrationBuilder.InsertData(
