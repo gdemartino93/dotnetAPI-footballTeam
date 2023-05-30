@@ -28,14 +28,14 @@ export default{
         <span class="text-danger" v-if="authStore.authErrorsRegister.length > 0">
           {{ (authStore.authErrorsRegister)}}
         </span>
-        <form @submit.prevent="authStore.register(form)" method="POST">
-          <input type="text" placeholder="Username" v-model="form.username">
-          <input type="text" placeholder="Nome" v-model="form.name">
-          <input type="text" placeholder="Cognome" v-model="form.lastname" >
-          <input type="text" placeholder="password" v-model="form.password">
-          <input type="text" placeholder="conferma password" v-model="form.confirmPassword">
-          <input type="email" placeholder="email" v-model="form.email">
-          <button type="submit">Registrati</button>
+          <form @submit.prevent="authStore.register(form)" method="POST" class="col-6 gap-4 mx-auto d-flex flex-column">
+          <InputText v-model="form.username" type="text" placeholder="Normal" />
+          <InputText v-model="form.name" type="text" placeholder="Normal" />
+          <InputText v-model="form.lastname" type="text" placeholder="Normal" />
+          <InputText v-model="form.password" type="text" placeholder="Normal" />
+          <InputText v-model="form.confirmPassword" type="text" placeholder="Normal" />
+          <InputText v-model="form.email" type="text" placeholder="Normal" />
+          <Button label="Login" type="submit" class="col-3" />
         </form>
       </div>
     </div>

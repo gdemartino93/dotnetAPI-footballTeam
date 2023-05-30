@@ -4,6 +4,7 @@ import PrimeVue from 'primevue/config';
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import Button from "primevue/button"
+import InputText from 'primevue/inputtext';
 import router from './router'
 import axios from 'axios';
 axios.defaults.baseURL = "https://localhost:7099/api/";
@@ -22,7 +23,7 @@ pinia.use(({store}) => {
 const app = createApp(App)
 app.use(PrimeVue)
 app.component('Button', Button)
-
+app.component('InputText',InputText)
 app.use(pinia)
 app.use(router)
 

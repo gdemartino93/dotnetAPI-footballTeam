@@ -4,6 +4,7 @@ import Header from './components/Header.vue';
 import { useAuthStore } from './stores/auth';
 const authStore = useAuthStore();
 authStore.getUser(); //eseguiamo al mounted dell'applicazione la funzione per tenere traccia se l'utente è loggato
+console.log(authStore.user)
 </script>
 
 <template>
