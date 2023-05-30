@@ -12,8 +12,8 @@ using dotnetAPI_footballTeam.Data;
 namespace dotnetAPI_footballTeam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230527204055_first")]
-    partial class first
+    [Migration("20230530221304_UserTeamRel1to1")]
+    partial class UserTeamRel1to1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,6 +166,10 @@ namespace dotnetAPI_footballTeam.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -184,33 +188,10 @@ namespace dotnetAPI_footballTeam.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teams");
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique();
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "Madrid",
-                            Name = "Real Madrid",
-                            Stadium = "Santiago Bernabeu",
-                            State = "Spagna"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            City = "Milano",
-                            Name = "Ac Milan",
-                            Stadium = "San Siro",
-                            State = "Italia"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            City = "London",
-                            Name = "Chelsea",
-                            Stadium = "Stamford Bridge",
-                            State = "Inghilterra"
-                        });
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("dotnetAPI_footballTeam.Models.ApplicationUser", b =>
@@ -321,51 +302,6 @@ namespace dotnetAPI_footballTeam.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Players");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ContractExpiration = new DateTime(2022, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(1987, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Lastname = "Benzema",
-                            Name = "Karim",
-                            Role = "Attaccante",
-                            TeamId = 1,
-                            Value = 50m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ContractExpiration = new DateTime(2021, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(1981, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Lastname = "Ibrahimovic",
-                            Name = "Zlatan",
-                            Role = "Attaccante",
-                            TeamId = 2,
-                            Value = 5m
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ContractExpiration = new DateTime(2023, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(1991, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Lastname = "Kante",
-                            Name = "N'Golo",
-                            Role = "Centrocampista",
-                            TeamId = 3,
-                            Value = 100m
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ContractExpiration = new DateTime(2024, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(1991, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Lastname = "Hazard",
-                            Name = "Eden",
-                            Role = "Centrocampista",
-                            Value = 100m
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -419,12 +355,28 @@ namespace dotnetAPI_footballTeam.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("dotnetAPI_Rubrica.Models.Team", b =>
+                {
+                    b.HasOne("dotnetAPI_footballTeam.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("Team")
+                        .HasForeignKey("dotnetAPI_Rubrica.Models.Team", "ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
             modelBuilder.Entity("dotnetAPI_footballTeam.Models.Player", b =>
                 {
                     b.HasOne("dotnetAPI_Rubrica.Models.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId");
 
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("dotnetAPI_footballTeam.Models.ApplicationUser", b =>
+                {
                     b.Navigation("Team");
                 });
 #pragma warning restore 612, 618

@@ -18,39 +18,45 @@ namespace dotnetAPI_footballTeam.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            //create teams
+            builder.Entity<ApplicationUser>()
+                .HasOne(t => t.Team)
+                .WithOne(u => u.ApplicationUser)
+                .HasForeignKey<Team>(k => k.ApplicationUserId);
             builder.Entity<Team>().HasData(
                                new Team
                                {
-                                   Id=1,
-                    Name = "Real Madrid",
-                    State = "Spagna",
-                    City = "Madrid",
-                    Stadium = "Santiago Bernabeu"
-                },
+                                   Id = 1,
+                                   Name = "Real Madrid",
+                                   State = "Spagna",
+                                   City = "Madrid",
+                                   Stadium = "Santiago Bernabeu",
+                                   ApplicationUserId = "07582b52-97e9-48bd-897b-3e87144ab035"
+                               },
                                               new Team
                                               {
-                                                  Id=2,
-                    Name = "Ac Milan",
-                    State = "Italia",
-                    City = "Milano",
-                    Stadium = "San Siro"
-                },
-                                                             new Team
-                                                             {
-                                                                 Id=3,
-                    Name = "Chelsea",
-                    State = "Inghilterra",
-                    City = "London",
-                    Stadium = "Stamford Bridge"
-                }
+                                                  Id = 2,
+                                                  Name = "Ac Milan",
+                                                  State = "Italia",
+                                                  City = "Milano",
+                                                  Stadium = "San Siro",
+                                                  ApplicationUserId = "b5777d27-49c9-4999-951b-a33ddc4f65aa"
+                                              },
+                                              new Team
+                                              {
+                                                  Id = 3,
+                                                  Name = "Chelsea",
+                                                  State = "Inghilterra",
+                                                  City = "Londra",
+                                                  Stadium = "Stamford Bridge",
+                                                  ApplicationUserId = "eeab3023-3f38-4839-95b4-bfb4bbe9c466"
+                                              }
+
                                                                         );
-            //create player for these teams
             builder.Entity<Player>().HasData(
                                new Player
                                {
                                    Id = 1,
-                    Name = "Karim",
+                                   Name = "Karim",
                                    Lastname = "Benzema",
                                    DateOfBirth = new System.DateTime(1987, 12, 19),
                                    Role = "Attaccante",
@@ -93,10 +99,12 @@ namespace dotnetAPI_footballTeam.Data
                                                                  TeamId = null
 
                                                              }
-                                                                            ); ;
+                                                                            );
+            ;
 
 
-            
+
+
 
 
 

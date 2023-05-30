@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace dotnetAPI_footballTeam.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class UserTeamRel1to1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,22 +50,6 @@ namespace dotnetAPI_footballTeam.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Teams",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Stadium = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teams", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -177,6 +159,29 @@ namespace dotnetAPI_footballTeam.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Teams",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stadium = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teams_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Players",
                 columns: table => new
                 {
@@ -198,31 +203,6 @@ namespace dotnetAPI_footballTeam.Migrations
                         column: x => x.TeamId,
                         principalTable: "Teams",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.InsertData(
-                table: "Players",
-                columns: new[] { "Id", "ContractExpiration", "DateOfBirth", "Lastname", "Name", "Role", "TeamId", "Value" },
-                values: new object[] { 4, new DateTime(2024, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1991, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hazard", "Eden", "Centrocampista", null, 100m });
-
-            migrationBuilder.InsertData(
-                table: "Teams",
-                columns: new[] { "Id", "City", "Name", "Stadium", "State" },
-                values: new object[,]
-                {
-                    { 1, "Madrid", "Real Madrid", "Santiago Bernabeu", "Spagna" },
-                    { 2, "Milano", "Ac Milan", "San Siro", "Italia" },
-                    { 3, "London", "Chelsea", "Stamford Bridge", "Inghilterra" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Players",
-                columns: new[] { "Id", "ContractExpiration", "DateOfBirth", "Lastname", "Name", "Role", "TeamId", "Value" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2022, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1987, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Benzema", "Karim", "Attaccante", 1, 50m },
-                    { 2, new DateTime(2021, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1981, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ibrahimovic", "Zlatan", "Attaccante", 2, 5m },
-                    { 3, new DateTime(2023, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1991, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kante", "N'Golo", "Centrocampista", 3, 100m }
                 });
 
             migrationBuilder.CreateIndex(
@@ -268,6 +248,12 @@ namespace dotnetAPI_footballTeam.Migrations
                 name: "IX_Players_TeamId",
                 table: "Players",
                 column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teams_ApplicationUserId",
+                table: "Teams",
+                column: "ApplicationUserId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -295,10 +281,10 @@ namespace dotnetAPI_footballTeam.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Teams");
 
             migrationBuilder.DropTable(
-                name: "Teams");
+                name: "AspNetUsers");
         }
     }
 }
