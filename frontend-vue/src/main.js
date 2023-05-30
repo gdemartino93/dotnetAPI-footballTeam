@@ -3,6 +3,9 @@ import { createApp, markRaw } from 'vue'
 import PrimeVue from 'primevue/config';
 import { createPinia } from 'pinia'
 import App from './App.vue'
+import ToastPlugin from 'vue-toast-notification';
+
+
 import Button from "primevue/button"
 import InputText from 'primevue/inputtext';
 import Dropdown from 'primevue/dropdown';
@@ -10,7 +13,8 @@ import router from './router'
 import axios from 'axios';
 axios.defaults.baseURL = "https://localhost:7099/api/";
 //theme
-import "primevue/resources/themes/lara-light-indigo/theme.css";     
+import "primevue/resources/themes/lara-light-indigo/theme.css";
+import 'vue-toast-notification/dist/theme-sugar.css';
 //core
 import "primevue/resources/primevue.min.css";
 import 'bootstrap/dist/css/bootstrap.css'
@@ -23,6 +27,9 @@ pinia.use(({store}) => {
 
 const app = createApp(App)
 app.use(PrimeVue)
+app.use(ToastPlugin,{
+    position : 'top-right'
+})
 app.component('Button', Button)
 app.component('InputText',InputText)
 app.component('DropDown',Dropdown)

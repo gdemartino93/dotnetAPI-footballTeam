@@ -8,7 +8,6 @@ export const useAuthStore = defineStore("auth", {
         authUser: null,
         authErrorsRegister: [],
         authErrorsLogin :[],
-        editSuccess : null,
     }),
     // nei getters si calcola il valore derivante dallo stato dell'applicazione per non ripetre codice.
     getters: {
@@ -82,11 +81,10 @@ export const useAuthStore = defineStore("auth", {
                     res = res.data;
                     let userEdited = res.result;
                     this.authUser = userEdited ;
-                    this.editSuccess = true;
-                    router.push('/profile');
+                    router.push('/')
                 }).catch(err => {
                     console.log("Errore",err);
-                    this.editSuccess = false;
+                    this.$toast.error("C'è stato un problema");
                 })
 
             

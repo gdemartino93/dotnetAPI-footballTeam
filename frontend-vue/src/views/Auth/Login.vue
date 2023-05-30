@@ -13,6 +13,7 @@ export default{
     };
   },
   methods: {
+
   },
   
 };
@@ -22,7 +23,6 @@ export default{
     <div class="container">
       <div class="row text-center">
         <h1>Login</h1>
-        
         <span class="text-danger" v-if="authStore.authErrorsLogin.length > 0">
             {{ authStore.authErrorsLogin }}
         </span>

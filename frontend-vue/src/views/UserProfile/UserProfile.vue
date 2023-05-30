@@ -3,8 +3,6 @@
       <div class="row text-center">
         <h2>Questo è il tuo profilo</h2>
       </div>
-      <span class="text-success" v-if="authStore.editSuccess == true">Modifica effettuata</span>
-      <span class="text-danger" v-if="authStore.editSuccess == false">C'è stato un problema</span>
 
       <form @submit.prevent="editNameAndLastname">
 
@@ -56,20 +54,11 @@ import { useAuthStore } from '../../stores/auth';
     },
     methods: {
         editNameAndLastname() {
-            this.authStore.editSuccess = undefined; // Reimposta la variabile editSuccess su false
             this.authStore.EditNameAndLastname(this.form);
+            this.$toast.success('Dati aggiornati');
+
   }
     },
-    watch: {
-    'authStore.editSuccess': function(newValue) {
-      if (newValue) {
-        setTimeout(() => {
-          this.authStore.editSuccess = undefined;
-          router.push('/') // Reimposta la variabile editSuccess su false dopo 3 secondi (puoi modificare il tempo a tuo piacimento)
-        }, 3000);
-      }
-    }
-  }
   };
   </script>
   
