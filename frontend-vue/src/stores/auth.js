@@ -34,21 +34,49 @@ export const useAuthStore = defineStore("auth", {
           
         async login(data){
             try {
-               await axios.post('userauth/login',{
+               const resLogin = await axios.post('userauth/login',{
                     username : data.username,
                     password : data.password
-                });
+                }
+                );
+                let token = resLogin.data.result.token;
+                let role = resLogin.data.result.role;
+                 localStorage.setItem("token",token);
+                 localStorage.setItem("role", role);
+                 localStorage.setItem("user", data.username)
+
                 this.authUser = data;
+
+                // await axios.get(`userauth/getuser?username=${this.authUser.username}`)
+                //     .then(res => {
+                //         res = res.data;
+                //         let userLogged = res.result;
+                //         this.authUser = userLogged;
+                //     })
+                this.getUser();
                 router.push('/')
             } catch (error) {
-                this.authErrorsLogin = error.response.data.errorMessage[0]
+                 //this.authErrorsLogin = error.response.data.errorMessage[0]
             }
         },
         logout(){
             this.authUser = null;
+            localStorage.removeItem("role");
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
             router.push('/')
             console.log("logout")
-        }
+        },
+        async getUser(){
+            let username = localStorage.getItem("user");
+            await axios.get(`userauth/getuser?username=${username}`)
+                    .then(res => {
+                        res = res.data;
+                        let userLogged = res.result;
+                        this.authUser = userLogged;
+                    })
+                    console.log(this.authUser)
+        } 
 
 
 

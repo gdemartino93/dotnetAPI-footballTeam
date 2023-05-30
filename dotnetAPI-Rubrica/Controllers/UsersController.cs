@@ -94,9 +94,9 @@ namespace dotnetAPI_footballTeam.Controllers
             return null;
         }
         [HttpGet("GetUser")]
-        public async Task<APIResponse> GetUserByEmail(string email)
+        public async Task<APIResponse> GetUserByUsername(string username)
         {
-           var user = await _userRepository.GetUserByEmail(email);
+           var user = await _userRepository.GetUserByUsername(username);
             if(user is null)
             {
                 _response.StatusCode = HttpStatusCode.NotFound;

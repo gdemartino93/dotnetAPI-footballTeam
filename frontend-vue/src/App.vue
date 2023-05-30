@@ -1,6 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import Header from './components/Header.vue'
+import Header from './components/Header.vue';
+import { useAuthStore } from './stores/auth';
+const authStore = useAuthStore();
+authStore.getUser(); //eseguiamo al mounted dell'applicazione la funzione per tenere traccia se l'utente è loggato
 </script>
 
 <template>

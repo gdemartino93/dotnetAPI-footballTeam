@@ -152,9 +152,9 @@ namespace dotnetAPI_footballTeam.Repository
             return regex.IsMatch(email);
         }
 
-        public async Task<UserDTO> GetUserByEmail(string email)
+        public async Task<UserDTO> GetUserByUsername(string username)
         {
-            var user =  _dbContext.ApplicationUsers.FirstOrDefault(u => u.Email == email);
+            var user =  _dbContext.ApplicationUsers.FirstOrDefault(u => u.UserName == username);
             if( user == null )
             {
                 return null;
