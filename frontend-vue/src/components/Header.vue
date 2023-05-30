@@ -3,7 +3,8 @@ import { useAuthStore } from '../stores/auth';
 export default {
     data(){
         return {
-            auth : useAuthStore()
+            auth : useAuthStore(),
+            showDropdown: false
         }
     },
     
@@ -15,10 +16,10 @@ export default {
 li a{
     text-decoration: none;
     color: inherit;
-    margin-left: 10px;
 }
 .auth{
-    margin-right: 70px;
+    margin-right: 150px;
+    margin-left: 10px;
 }
 </style>
 <template>
@@ -30,7 +31,7 @@ li a{
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+        <li class="nav-item mx-2">
             <RouterLink to="/">Home</RouterLink>
         </li>
         <li class="nav-item">
@@ -61,9 +62,19 @@ li a{
             <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
           </ul>
         </li>
-        <button class="nav-item dropdown auth" v-if="auth.user != null" @click="auth.logout">
-            Logout
-        </button>
+        <div class="dropdown auth" v-if="auth.user">
+          <Button icon="pi pi-user" class="dropdown-toggle" severity="warning" rounded outlined aria-label="User"  data-bs-toggle="dropdown" aria-expanded="false"></Button> 
+
+          <ul class="dropdown-menu">
+            <li>
+              <RouterLink class="dropdown-item" to="/profile">Profilo</RouterLink>
+            </li>
+            <li>
+                <a class="dropdown-item" @click="auth.logout">Logout</a>
+            </li>
+          </ul>
+        </div>  
+
       </ul>
       </div>
       

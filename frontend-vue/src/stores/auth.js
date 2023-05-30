@@ -8,6 +8,7 @@ export const useAuthStore = defineStore("auth", {
         authUser: null,
         authErrorsRegister: [],
         authErrorsLogin :[],
+        editSuccess : null,
     }),
     // nei getters si calcola il valore derivante dallo stato dell'applicazione per non ripetre codice.
     getters: {
@@ -46,17 +47,9 @@ export const useAuthStore = defineStore("auth", {
                  localStorage.setItem("user", data.username)
 
                 this.authUser = data;
-
-                // await axios.get(`userauth/getuser?username=${this.authUser.username}`)
-                //     .then(res => {
-                //         res = res.data;
-                //         let userLogged = res.result;
-                //         this.authUser = userLogged;
-                //     })
                 this.getUser();
                 router.push('/')
             } catch (error) {
-                 //this.authErrorsLogin = error.response.data.errorMessage[0]
             }
         },
         logout(){
@@ -75,8 +68,29 @@ export const useAuthStore = defineStore("auth", {
                         let userLogged = res.result;
                         this.authUser = userLogged;
                     })
-                    console.log(this.authUser)
-        } 
+                    console.log(this.user);
+                 
+        } ,
+        async EditNameAndLastname(data){
+                await axios.put('UserAuth/EditUserNameAndLastname',{
+                    id : data.id,
+                    username : data.username,
+                    email : data.email,
+                    name : data.name,
+                    lastname : data.lastname
+                }).then(res => {
+                    res = res.data;
+                    let userEdited = res.result;
+                    this.authUser = userEdited ;
+                    this.editSuccess = true;
+                    router.push('/profile');
+                }).catch(err => {
+                    console.log("Errore",err);
+                    this.editSuccess = false;
+                })
+
+            
+        }
 
 
 
