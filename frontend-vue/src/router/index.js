@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Login from '../views/Auth/Login.vue'
 import Register from '../views/Auth/Register.vue'
 import UserProfile from '../views/UserProfile/UserProfile.vue'
+import { useAuthStore } from '../stores/auth'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -32,9 +33,19 @@ const router = createRouter({
     {
       path : '/profile',
       name : 'profile',
-      component : UserProfile
+      component : UserProfile,
+      meta: {
+        requiresAuth : true,
+      }
     }
   ]
 })
-
+router.beforeEach((to,from,next) => {
+  const authStore = useAuthStore();
+  if(to.meta.requiresAuth && !authStore.user){
+    next('/');
+  }else{
+    next();
+  }
+})
 export default router
