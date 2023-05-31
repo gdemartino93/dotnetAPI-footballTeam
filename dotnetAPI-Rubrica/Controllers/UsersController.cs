@@ -149,5 +149,31 @@ namespace dotnetAPI_footballTeam.Controllers
             }
 
         }
+        [HttpGet("HasTeam")]
+        public async Task<APIResponse> HasTeam(string username)
+        {
+            var user = await _userRepository.GetUserByUsername(username);
+            if(user is null)
+            {
+                _response.StatusCode = HttpStatusCode.NotFound;
+                _response.ErrorMessage.Add("User non trovato");
+                return _response;
+            }
+            if(user.TeamId is not null && user.TeamId is not 0)
+            {
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess=true;
+                _response.Result = true;
+                return _response;
+            }
+            else
+            {
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+                _response.Result = false;
+                return _response;
+            }
+
+        }
     }
 }
