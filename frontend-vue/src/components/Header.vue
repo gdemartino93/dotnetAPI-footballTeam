@@ -68,7 +68,7 @@ li a{
           <ul class="dropdown-menu">
             <li>
               <RouterLink class="dropdown-item" to="/createteam" v-if="auth.user.teamName == null">Crea team</RouterLink>
-              <RouterLink class="dropdown-item" v-else>{{ auth.user.teamName }}</RouterLink>
+              <RouterLink class="dropdown-item" to="" v-else>{{ auth.user.teamName }}</RouterLink>
             </li>
             <li>
               <RouterLink class="dropdown-item" to="/profile">Profilo</RouterLink>
