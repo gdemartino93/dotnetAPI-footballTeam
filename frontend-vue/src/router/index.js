@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import Login from '../views/Auth/Login.vue'
 import Register from '../views/Auth/Register.vue'
 import UserProfile from '../views/UserProfile/UserProfile.vue'
+import CreateTeam from '../views/Team/CreateTeam.vue'
+
 import { useAuthStore } from '../stores/auth'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +39,11 @@ const router = createRouter({
       meta: {
         requiresAuth : true,
       }
+    },
+    {
+      path : '/createTeam',
+      name : 'createTeam',
+      component : CreateTeam
     }
   ]
 })
