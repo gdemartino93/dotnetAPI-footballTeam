@@ -158,7 +158,8 @@ namespace dotnetAPI_footballTeam.Repository
 
         public Task<UserDTO> GetUserByUsername(string username)
         {
-            var user =  _dbContext.ApplicationUsers.FirstOrDefault(u => u.UserName == username);
+            ApplicationUser user = _dbContext.ApplicationUsers.FirstOrDefault(u => u.UserName == username);
+            user.Team =  _dbContext.Teams.Where(t => t.Id == user.TeamId).FirstOrDefault();
             if( user == null )
             {
                 return Task.FromResult<UserDTO>(null);
@@ -235,7 +236,16 @@ namespace dotnetAPI_footballTeam.Repository
 
             return await Task.FromResult(result);
         }
-
+        public Task<UserDTO> GetUserById(string id)
+        {
+            var user = _dbContext.ApplicationUsers.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return Task.FromResult<UserDTO>(null);
+            }
+            UserDTO userDTO = _mapper.Map<UserDTO>(user);
+            return Task.FromResult(userDTO);
+        }
 
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using dotnetAPI_footballTeam.Models.DTO.TeamsDTO;
+using dotnetAPI_Rubrica.Models;
 
 namespace dotnetAPI_footballTeam.Controllers.v1
 {
@@ -16,12 +17,15 @@ namespace dotnetAPI_footballTeam.Controllers.v1
         private readonly IMapper _mapper;
         private IUnitOfWork _unitOfWork;
         private APIResponse _response;
+        private IUserRepository _userRepository;
 
-        public TeamsController(IMapper mapper, IUnitOfWork unitOfWork)
+        public TeamsController(IMapper mapper, IUnitOfWork unitOfWork, IUserRepository userRepository)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _response = new APIResponse();
+            _userRepository = userRepository;
+
         }
         [HttpGet("GetTeamsWithUser")]
         public async Task<APIResponse> GetTeamsWithUser()
@@ -38,6 +42,14 @@ namespace dotnetAPI_footballTeam.Controllers.v1
             _response.Result = teamListDto;
             _response.IsSuccess = true;
             _response.StatusCode = System.Net.HttpStatusCode.OK;
+            return _response;
+        }
+        [HttpPost("CreateTeam")]
+        public async Task<APIResponse> CreateTeam(TeamCreateDTO team)
+        {
+           await _unitOfWork.TeamRepository.CreateAsync(_mapper.Map<Team>(team));
+            _response.Result = team;
+            _response.IsSuccess = true;
             return _response;
         }
     }

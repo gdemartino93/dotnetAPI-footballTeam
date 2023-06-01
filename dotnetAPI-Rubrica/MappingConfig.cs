@@ -19,6 +19,7 @@ namespace dotnetAPI_footballTeam
                 .ForMember(dest => dest.Username, from => from.MapFrom(src => src.ApplicationUser.UserName))
                 .ForMember(dest => dest.UserEmail, from => from.MapFrom(src => src.ApplicationUser.Email))
                 .ReverseMap();
+            CreateMap<Team, TeamCreateDTO>().ReverseMap();
         }
     }
 }
