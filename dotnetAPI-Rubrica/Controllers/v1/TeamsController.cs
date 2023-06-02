@@ -53,7 +53,7 @@ namespace dotnetAPI_footballTeam.Controllers.v1
 
            // await _userRepository.UpdateAsync(_mapper.Map<ApplicationUser>(user));
 
-            _response.Result = "dio";
+            _response.Result = "dio"; 
             _response.IsSuccess = true;
             return _response;
         }

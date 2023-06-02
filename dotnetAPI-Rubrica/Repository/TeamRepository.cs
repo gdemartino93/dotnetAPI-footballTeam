@@ -25,11 +25,12 @@ namespace dotnetAPI_footballTeam.Repository
                 await _db.SaveChangesAsync();
 
                 var user = _db.Users.Where(u => u.Id == teamDto.ApplicationUserId).FirstOrDefault();
+                user.TeamId = team.Id;
                 if (user.TeamId is null)
                 {
                     throw new Exception("team id null");
                 }
-                user.TeamId = team.Id;
+                
                 await _db.SaveChangesAsync();
             }
             catch (Exception)
