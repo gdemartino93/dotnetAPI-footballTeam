@@ -22,6 +22,10 @@ namespace dotnetAPI_footballTeam.Data
                 .HasOne(t => t.Team)
                 .WithOne(u => u.ApplicationUser)
                 .HasForeignKey<Team>(k => k.ApplicationUserId);
+            builder.Entity<Team>()
+                .HasOne(t => t.ApplicationUser)
+                .WithOne(u => u.Team)
+                .HasForeignKey<ApplicationUser>(u => u.TeamId);
             builder.Entity<Team>().HasData(
                                new Team
                                {
@@ -108,6 +112,10 @@ namespace dotnetAPI_footballTeam.Data
 
 
 
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
         }
     }
 }

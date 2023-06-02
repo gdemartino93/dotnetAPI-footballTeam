@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using dotnetAPI_footballTeam.Models.DTO.TeamsDTO;
 using dotnetAPI_Rubrica.Models;
+using dotnetAPI_footballTeam.Models.DTO;
 
 namespace dotnetAPI_footballTeam.Controllers.v1
 {
@@ -45,12 +46,17 @@ namespace dotnetAPI_footballTeam.Controllers.v1
             return _response;
         }
         [HttpPost("CreateTeam")]
-        public async Task<APIResponse> CreateTeam(TeamCreateDTO team)
+        public async Task<APIResponse> CreateTeam(TeamCreateDTO teamDto)
         {
-           await _unitOfWork.TeamRepository.CreateAsync(_mapper.Map<Team>(team));
-            _response.Result = team;
+            //var team = _mapper.Map<Team>(teamDto);
+           await _unitOfWork.TeamRepository.CreateTeamAsync(teamDto);
+
+           // await _userRepository.UpdateAsync(_mapper.Map<ApplicationUser>(user));
+
+            _response.Result = "dio";
             _response.IsSuccess = true;
             return _response;
         }
+
     }
 }

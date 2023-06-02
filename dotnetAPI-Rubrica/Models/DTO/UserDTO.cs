@@ -1,4 +1,5 @@
 ﻿using dotnetAPI_Rubrica.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dotnetAPI_footballTeam.Models.DTO
 {
@@ -11,5 +12,7 @@ namespace dotnetAPI_footballTeam.Models.DTO
         public string? Lastname { get; set; }
         public int? TeamId { get; set; }
         public string? TeamName { get; set; }
+        [ForeignKey("TeamId")]
+        public Team? Team { get; set; }
     }
 }
