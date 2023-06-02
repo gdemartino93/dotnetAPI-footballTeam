@@ -25,6 +25,12 @@ export const useAuthStore = defineStore("auth", {
                 password: data.password,
                 confirmPassword: data.confirmPassword,
                 email: data.email,
+              }).then(()=>{
+                const loginData = {
+                    username : data.username,
+                    password : data.password
+                };
+                this.login(loginData);
               });
               router.push('/')
             } catch (error) {
