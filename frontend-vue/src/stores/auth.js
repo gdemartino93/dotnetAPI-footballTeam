@@ -61,13 +61,16 @@ export const useAuthStore = defineStore("auth", {
         },
         async getUser(){
             let username = localStorage.getItem("user");
-            await axios.get(`userauth/getuser?username=${username}`)
-                    .then(res => {
-                        res = res.data;
-                        let userLogged = res.result;
-                        this.authUser = userLogged;
-                    })
-                    console.log(this.user);
+            if(username){
+                await axios.get(`userauth/getuser?username=${username}`)
+                .then(res => {
+                    res = res.data;
+                    let userLogged = res.result;
+                    this.authUser = userLogged;
+                })
+                console.log(this.user);
+            }
+           
                  
         } ,
         async EditNameAndLastname(data){

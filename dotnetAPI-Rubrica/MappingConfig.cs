@@ -14,6 +14,7 @@ namespace dotnetAPI_footballTeam
             //CreateMap<ApplicationUser,UserDTO>().ForMember(dest => dest.TeamName, from => from.MapFrom(src => src.Team.Name)).ReverseMap();
             CreateMap<ApplicationUser, UserDTO>()
             .ForMember(dest => dest.TeamName, from => from.MapFrom(src => src.Team.Name))
+                .ForMember(dest => dest.Team, opt => opt.Ignore()) // Ignora la mappatura di Team per evitare il ciclo infinito
             .ForMember(dest => dest.TeamId, from => from.MapFrom(src => src.TeamId))
             .ReverseMap();
             CreateMap<Player,PlayerWithTeamNameDTO>().ForMember(dest => dest.TeamName, opt => opt.MapFrom(src => src.Team.Name)).ReverseMap();

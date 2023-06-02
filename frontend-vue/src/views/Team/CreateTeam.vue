@@ -1,6 +1,8 @@
 <script>
 import axios from 'axios';
 import { useAuthStore } from '../../stores/auth';
+import router from '../../router';
+
 export default{
 
   data() {
@@ -16,15 +18,22 @@ export default{
     };
   },
   methods: {
-    createTeam(data){
-        axios.post('Teams/CreateTeam', {
-            name : data.name,
-            state : data.state,
-            city : data.city,
-            stadium : data.stadium,
-            applicationUserId : this.authStore.user.id
-        })
-    }
+    createTeam(data) {
+  axios
+    .post("Teams/CreateTeam", {
+      name: data.name,
+      state: data.state,
+      city: data.city,
+      stadium: data.stadium,
+      applicationUserId: this.authStore.user.id,
+    })
+    .then(() => {
+      this.authStore.getUser().then(() => {
+        router.push("/");
+      });
+    });
+}
+
   },
   
 };
