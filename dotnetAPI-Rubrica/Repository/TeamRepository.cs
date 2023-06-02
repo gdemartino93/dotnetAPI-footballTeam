@@ -3,6 +3,7 @@ using dotnetAPI_footballTeam.Data;
 using dotnetAPI_footballTeam.Models.DTO.TeamsDTO;
 using dotnetAPI_footballTeam.Repository.IRepository;
 using dotnetAPI_Rubrica.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotnetAPI_footballTeam.Repository
 {
@@ -40,5 +41,7 @@ namespace dotnetAPI_footballTeam.Repository
             }
             
         }
+
+
     }
 }

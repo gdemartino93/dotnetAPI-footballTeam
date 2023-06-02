@@ -173,5 +173,21 @@ namespace dotnetAPI_footballTeam.Controllers.v1
             _response.ErrorMessage.Add("Team non trovato");
             return _response;
         }
+        [HttpGet("GetPlayersOfTeam")]
+        public async Task<APIResponse> GetPlayersOfTeam(int teamId)
+        {
+            var playerList = await _unitOfWork.PlayerRepository.GetAllAsync(p => p.TeamId == teamId);
+            if(playerList is null || playerList.Count == 0)
+            {
+                _response.Result = "Non ci sono giocatori";
+                _response.IsSuccess =true;
+                _response.StatusCode = HttpStatusCode.OK;
+                return _response;
+            }
+            _response.Result = playerList;
+            _response.IsSuccess = true;
+            _response.StatusCode = HttpStatusCode.OK;
+            return _response;
+        }
     }
 }

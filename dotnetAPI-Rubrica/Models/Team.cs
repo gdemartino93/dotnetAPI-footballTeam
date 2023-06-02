@@ -16,5 +16,6 @@ namespace dotnetAPI_Rubrica.Models
 
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
+        public ICollection<Player>? Player { get; set; }
     }
 }
