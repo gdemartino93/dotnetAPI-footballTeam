@@ -45,6 +45,7 @@ namespace dotnetAPI_footballTeam.Controllers.v1
             _response.StatusCode = System.Net.HttpStatusCode.OK;
             return _response;
         }
+
         [HttpPost("CreateTeam")]
         public async Task<APIResponse> CreateTeam(TeamCreateDTO teamDto)
         {
@@ -55,6 +56,21 @@ namespace dotnetAPI_footballTeam.Controllers.v1
 
             _response.Result = "dio"; 
             _response.IsSuccess = true;
+            return _response;
+        }
+        [HttpGet("GetTeamOfUser")]
+        public async Task<APIResponse> GetTeamOfUser(string userId)
+        {
+            Team team = await _unitOfWork.TeamRepository.GetAsync(t => t.ApplicationUserId == userId,includeProperties: "Player");
+            if (team is null)
+            {
+                _response.StatusCode = System.Net.HttpStatusCode.NotFound;
+                _response.IsSuccess = true;
+                return _response;
+            }
+            _response.Result = team;
+            _response.IsSuccess = true;
+            _response.StatusCode = System.Net.HttpStatusCode.OK;
             return _response;
         }
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 namespace dotnetAPI_footballTeam
 {
@@ -42,6 +43,10 @@ namespace dotnetAPI_footballTeam
 
 
             builder.Services.AddControllers();
+            builder.Services.AddControllersWithViews().AddJsonOptions(opt =>
+            {
+                opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options => {
