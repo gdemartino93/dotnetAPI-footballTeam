@@ -4,6 +4,7 @@ import Login from '../views/Auth/Login.vue'
 import Register from '../views/Auth/Register.vue'
 import UserProfile from '../views/UserProfile/UserProfile.vue'
 import CreateTeam from '../views/Team/CreateTeam.vue'
+import Team from '../views/Team/Team.vue'
 
 import { useAuthStore } from '../stores/auth'
 const router = createRouter({
@@ -43,7 +44,19 @@ const router = createRouter({
     {
       path : '/createTeam',
       name : 'createTeam',
-      component : CreateTeam
+      component : CreateTeam,
+      meta: {
+        requiresAuth : true,
+      }
+    },
+    {
+      path : '/team',
+      name : 'team',
+      component : Team,
+      meta: {
+        requiresAuth : true,
+      }
+
     }
   ]
 })

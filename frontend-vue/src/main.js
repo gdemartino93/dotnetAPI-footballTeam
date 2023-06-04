@@ -4,8 +4,8 @@ import PrimeVue from 'primevue/config';
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import ToastPlugin from 'vue-toast-notification';
-
-
+import TreeTable from 'primevue/treetable';
+import Column from 'primevue/column';
 import Button from "primevue/button"
 import InputText from 'primevue/inputtext';
 import Dropdown from 'primevue/dropdown';
@@ -33,6 +33,8 @@ app.use(ToastPlugin,{
 app.component('Button', Button)
 app.component('InputText',InputText)
 app.component('DropDown',Dropdown)
+app.component("Column",Column)
+app.component('TreeTable',TreeTable)
 app.use(pinia)
 app.use(router)
 
