@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -9,7 +10,9 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private formBuilder : FormBuilder) { }
+  constructor(private formBuilder : FormBuilder,
+    private auth : AuthService,
+    private router : Router) { }
 
   form! : FormGroup;
 
@@ -23,5 +26,19 @@ export class RegisterComponent implements OnInit {
       'email' : ['', Validators.email]
     })
   }
+  register(){
+    this.auth.register(this.form.value).subscribe((res) => {
+      this.router.navigate(['']);
+      // Effettua il login automaticamente
+      this.auth.login({username: this.form.value.username, password: this.form.value.password}).subscribe((res) => {
+        console.log('Login effettuato automaticamente dopo la registrazione', this.form.value.username);
+        this.auth.userLogged = res.result.user;
+        console.log(this.auth.userLogged)
+        localStorage.setItem('token',res.result.token);
+        localStorage.setItem('currentUser', JSON.stringify(res.result.user) )
+      });
+    });
+  }
 
 }
+

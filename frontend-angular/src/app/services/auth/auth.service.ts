@@ -26,6 +26,10 @@ export class AuthService {
     const logged = localStorage.getItem('currentUser');
     return logged ? true : false
   }
+  logout(){
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
+  }
 
 
 }

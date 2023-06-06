@@ -12,7 +12,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './services/auth/auth.service';
-import { StoreModule } from '@ngrx/store';
+import { AvatarModule } from 'primeng/avatar';
 import { TeamComponent } from './pages/team/team/team.component';
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { TeamComponent } from './pages/team/team/team.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    AvatarModule
 
   ],
   providers: [AuthService],
