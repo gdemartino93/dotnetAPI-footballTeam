@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { TeamComponent } from './pages/team/team/team.component';
 import { LoggedGuard } from './guard/logged.guard';
+import { ProfileComponent } from './pages/profile/profile/profile.component';
 const routes: Routes = [
   {
     path : '',
@@ -21,6 +22,11 @@ const routes: Routes = [
   {
     path : 'team',
     component : TeamComponent,
+    canActivate : [LoggedGuard]
+  },
+  {
+    path : 'profile',
+    component : ProfileComponent,
     canActivate : [LoggedGuard]
   }
 ];

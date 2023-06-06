@@ -157,3 +157,7 @@ button {
   transition-delay: none;
  }
 
+.error{
+  margin-bottom: 20px;
+  position: absolute;
+}

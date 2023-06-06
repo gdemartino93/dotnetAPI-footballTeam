@@ -1,10 +1,15 @@
 <div class="login-box">
-
+  <span class="text-danger error" *ngIf="formLogin.get('username')?.invalid && formLogin.get('username')?.touched">
+    Username obbligatorio
+  </span>
   <form [formGroup]="formLogin" (ngSubmit)="login()">
     <div class="user-box">
       <input type="text" formControlName="username">
       <label>Username</label>
     </div>
+    <span class="text-danger error" *ngIf="formLogin.get('password')?.invalid && formLogin.get('password')?.touched">
+      Password obbligatoria
+    </span>
     <div class="user-box">
       <input type="password" formControlName="password">
       <label>Password</label>

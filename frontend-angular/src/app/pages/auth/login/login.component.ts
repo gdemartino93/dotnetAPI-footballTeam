@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
               ) { }
 
   formLogin! : FormGroup;
-
   login(){
     this.auth.login(this.formLogin.value).subscribe((res)=>{
       this.router.navigate([''])

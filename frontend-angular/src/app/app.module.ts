@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './services/auth/auth.service';
 import { AvatarModule } from 'primeng/avatar';
 import { TeamComponent } from './pages/team/team/team.component';
+import { ProfileComponent } from './pages/profile/profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import { TeamComponent } from './pages/team/team/team.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    TeamComponent
+    TeamComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
