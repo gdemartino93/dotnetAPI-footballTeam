@@ -14,7 +14,7 @@ export class AuthService {
     console.log(this.userLogged)
   }
 
-  userLogged? : User;
+  userLogged? : any;
 
   register(user : UserRegister): Observable<any>{
     return this.http.post<any>(environment.baseUrl + 'userauth/register' ,user);
@@ -29,6 +29,9 @@ export class AuthService {
   logout(){
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
+  }
+  getUser(username : string){
+    return this.http.get<any>(environment.baseUrl + `userauth/getuser?username=${username}`)
   }
 
 

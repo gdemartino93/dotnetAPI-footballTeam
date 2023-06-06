@@ -1,3 +1,6 @@
 .myUserMenu{
   margin-right: 130px;
 }
+a{
+  cursor: pointer;
+}

@@ -16,14 +16,17 @@ export class LoginComponent implements OnInit {
               ) { }
 
   formLogin! : FormGroup;
+
   login(){
     this.auth.login(this.formLogin.value).subscribe((res)=>{
       this.router.navigate([''])
-      this.auth.userLogged = res.result.user;
-      console.log(this.auth.userLogged)
-      localStorage.setItem('token',res.result.token);
-      localStorage.setItem('currentUser', JSON.stringify(res.result.user) )
-
+      this.auth.getUser(res.result.user.username).subscribe((resp) => {
+        this.auth.userLogged = resp.result;
+        localStorage.setItem('token',res.result.token);
+        localStorage.setItem('currentUser', JSON.stringify(resp.result) )
+        console.log("test",resp.result)
+        console.log(this.auth.userLogged)
+      })
     })
   }
 
