@@ -1,10 +1,13 @@
 <div class="login-box">
-
+  <span class="text-danger error" *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
+    Username obbligatorio
+  </span>
   <form [formGroup]="form" (ngSubmit)="register()">
     <div class="user-box">
       <input type="text" formControlName="username">
       <label>Username</label>
     </div>
+
     <div class="user-box">
       <input type="text" formControlName="name" >
       <label>Nome</label>
@@ -13,19 +16,33 @@
       <input type="text" formControlName="lastname">
       <label>Cognome</label>
     </div>
+    <span class="text-danger error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+      Password obbligatoria
+    </span>
     <div class="user-box">
-      <input type="text" formControlName="password" >
+      <input type="password" formControlName="password" >
       <label>Password</label>
     </div>
+    <span class="text-danger error" *ngIf="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched">
+      Conferma la tua password
+    </span>
 
     <div class="user-box">
       <input type="password" formControlName="confirmPassword" >
       <label>Conferma password</label>
     </div>
+    <span class="text-danger error" *ngIf="form.get('email')?.errors?.['required'] && form.get('email')?.touched">
+      Email obbligatoria
+    </span>
+    <span class="text-danger error" *ngIf="form.get('email')?.errors?.['email'] && form.get('email')?.touched">
+      Email non valida
+    </span>
+
     <div class="user-box">
       <input type="text" formControlName="email" >
       <label>Email</label>
     </div>
+
     <button type="submit">
       <span></span>
       <span></span>
