@@ -4,7 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { TeamComponent } from './pages/team/team/team.component';
-
+import { LoggedGuard } from './guard/logged.guard';
 const routes: Routes = [
   {
     path : '',
@@ -20,7 +20,8 @@ const routes: Routes = [
   },
   {
     path : 'team',
-    component : TeamComponent
+    component : TeamComponent,
+    canActivate : [LoggedGuard]
   }
 ];
 

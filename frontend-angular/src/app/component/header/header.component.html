@@ -28,7 +28,7 @@
 
         </div>
 
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="auth.getIsLogged()">
           <a class="nav-link" routerLink="team">Team</a>
         </li>
       </ul>
