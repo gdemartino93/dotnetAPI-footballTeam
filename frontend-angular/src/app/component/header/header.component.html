@@ -40,6 +40,14 @@
           <p-avatar icon="pi pi-user" size="xsmall" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></p-avatar>
           <ul class="dropdown-menu">
             <li><span style="color: grey;" class="dropdown-item">{{ auth.userLogged!.username }}</span></li>
+
+               <li class="dropdown-item"  *ngIf="auth.userLogged.teamId != null" style="cursor: pointer;">
+                {{ auth.userLogged.teamName }}
+               </li>
+               <li *ngIf="auth.userLogged.teamId == null" class="dropdown-item" style="cursor: pointer;">
+                  Crea Team
+               </li>
+
             <li><a class="dropdown-item" href="#">Profilo</a></li>
             <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
           </ul>
