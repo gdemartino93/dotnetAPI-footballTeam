@@ -1,28 +1,38 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ButtonModule } from 'primeng/button';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './component/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from './services/auth/auth.service';
+import { StoreModule } from '@ngrx/store';
+import { TeamComponent } from './pages/team/team/team.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    TeamComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ButtonModule
+    ButtonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
 
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
