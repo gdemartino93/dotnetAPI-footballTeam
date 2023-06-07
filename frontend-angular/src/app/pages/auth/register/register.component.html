@@ -26,7 +26,9 @@
     <span class="text-danger error" *ngIf="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched">
       Conferma la tua password
     </span>
-
+    <span class="text-danger error" *ngIf="form.errors?.['passwordMismatchError']">
+      Le password non corrispondono
+    </span>
     <div class="user-box">
       <input type="password" formControlName="confirmPassword" >
       <label>Conferma password</label>

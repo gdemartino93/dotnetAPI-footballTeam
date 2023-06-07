@@ -160,4 +160,5 @@ button {
 .error{
   position: absolute;
   margin-bottom: 20px;
+  font-size: 12px;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { passwordMatch } from 'src/app/validators/passwordMatch';
 
 @Component({
   selector: 'app-register',
@@ -18,13 +19,15 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      'username' : ['' , Validators.required],
-      'name' : [''],
-      'lastname' : [''],
-      'password' : ['',Validators.required],
-      'confirmPassword' : ['', Validators.required],
-      'email' : ['', [Validators.email,Validators.required]]
-    })
+      'username': ['', Validators.required],
+      'name': [''],
+      'lastname': [''],
+      'password': ['', Validators.required],
+      'confirmPassword': ['', Validators.required],
+      'email': ['', [Validators.email, Validators.required]]
+    }, {
+      validators: passwordMatch('password', 'confirmPassword')
+    });
   }
   register(){
     this.auth.register(this.form.value).subscribe((res) => {
