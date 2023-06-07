@@ -1,1 +1,11 @@
-<p>team works!</p>
+<div class="team-box-empty" *ngIf="players.length == 0">
+  <h2 class="text-center">
+    Non ci sono giocatori
+  </h2>
+</div>
+<div *ngIf="players.length > 0">
+  I tuoi giocatori
+  <div *ngFor="let player of players">
+    {{ player.name }}
+  </div>
+</div>
