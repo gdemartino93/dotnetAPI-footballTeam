@@ -37,10 +37,10 @@
           <ul class="dropdown-menu">
             <li><span style="color: grey;" class="dropdown-item" aria-disabled="true">{{ auth.userLogged!.username }}</span></li>
 
-               <li class="dropdown-item"  *ngIf="auth.userLogged.teamId != null" style="cursor: pointer;" routerLink="team">
-                {{ auth.userLogged.teamName }}
+               <li class="dropdown-item"  *ngIf="auth.userLogged?.teamId != null" style="cursor: pointer;" routerLink="team">
+                {{ auth.userLogged?.teamName }}
                </li>
-               <li *ngIf="auth.userLogged.teamId == null" class="dropdown-item" style="cursor: pointer;">
+               <li *ngIf="auth.userLogged?.teamId == null" class="dropdown-item" style="cursor: pointer;">
                   Crea Team
                </li>
 

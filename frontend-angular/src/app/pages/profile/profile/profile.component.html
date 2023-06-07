@@ -1,1 +1,49 @@
-<p>profile works!</p>
+<div class="login-box">
+  <form [formGroup]="formUser">
+    <div class="user-box">
+      <input type="text" formControlName="username" readonly>
+      <!-- <label>Username</label> -->
+    </div>
+
+    <div class="user-box">
+      <input type="text" formControlName="name">
+      <label>Nome</label>
+    </div>
+
+    <div class="user-box">
+      <input type="text" formControlName="lastname">
+      <label>Cognome</label>
+    </div>
+
+    <div class="user-box">
+      <input type="text" formControlName="email" readonly>
+      <!-- <label>Email</label> -->
+    </div>
+
+    <div class="d-flex gap-3">
+      <button type="button" (click)="resetForm()" *ngIf="isFormDirty">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Reset
+      </button>
+
+      <button routerLink="" *ngIf="!isFormDirty">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Home
+      </button>
+
+    <button type="submit" *ngIf="isFormDirty">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Modifica
+    </button>
+  </div>
+  </form>
+</div>

@@ -9,12 +9,11 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
   constructor(private http : HttpClient) {
-    console.log('auth service')
     this.userLogged = JSON.parse(localStorage.getItem('currentUser') || '{}');
     console.log(this.userLogged)
   }
 
-  userLogged? : any;
+  userLogged? : User;
 
   register(user : UserRegister): Observable<any>{
     return this.http.post<any>(environment.baseUrl + 'userauth/register' ,user);
