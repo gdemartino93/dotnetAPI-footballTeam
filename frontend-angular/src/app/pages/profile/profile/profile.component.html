@@ -1,12 +1,16 @@
 <div class="login-box">
-  <form [formGroup]="formUser">
+  <form [formGroup]="formUser" (ngSubmit)="editUserProfile()">
     <div class="user-box">
-      <input type="text" formControlName="username" readonly>
+      <input type="text" formControlName="id" readonly class="blocked-field" hidden>
+      <!-- <label>Username</label> -->
+    </div>
+    <div class="user-box">
+      <input type="text" formControlName="username" readonly class="blocked-field">
       <!-- <label>Username</label> -->
     </div>
 
     <div class="user-box">
-      <input type="text" formControlName="name">
+      <input type="text" formControlName="name" >
       <label>Nome</label>
     </div>
 
@@ -16,7 +20,7 @@
     </div>
 
     <div class="user-box">
-      <input type="text" formControlName="email" readonly>
+      <input type="text" formControlName="email" readonly class="blocked-field">
       <!-- <label>Email</label> -->
     </div>
 

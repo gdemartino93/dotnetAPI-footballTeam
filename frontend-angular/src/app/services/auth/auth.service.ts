@@ -32,6 +32,9 @@ export class AuthService {
   getUser(username : string){
     return this.http.get<any>(environment.baseUrl + `userauth/getuser?username=${username}`)
   }
+  changeData(user : User){
+    return this.http.put<any>(environment.baseUrl + 'UserAuth/EditUserNameAndLastname',user);
+  }
 
 
 }
