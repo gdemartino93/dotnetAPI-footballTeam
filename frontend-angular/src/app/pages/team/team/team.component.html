@@ -9,12 +9,12 @@
   <p-table [value]="players" (sortFunction)="customSort($event)" [customSort]="true" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="code" style="width:20%">Nome <p-sortIcon field="name"></p-sortIcon></th>
-            <th pSortableColumn="name" style="width:20%">Cognome <p-sortIcon field="lastname"></p-sortIcon></th>
-            <th pSortableColumn="category" style="width:20%">Ruolo <p-sortIcon field="rol"></p-sortIcon></th>
-            <th pSortableColumn="category" style="width:20%">Valore <p-sortIcon field="value"></p-sortIcon></th>
-            <th pSortableColumn="quantity" style="width:20%">Data di nascita <p-sortIcon field="dateOfBirth"></p-sortIcon></th>
-            <th pSortableColumn="price" style="width:20%">Scadenza di contratto <p-sortIcon field="contractExpiration"></p-sortIcon></th>
+            <th pSortableColumn="name" style="width:20%">Nome <p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="lastname" style="width:20%">Cognome <p-sortIcon field="lastname"></p-sortIcon></th>
+            <th pSortableColumn="role" style="width:20%">Ruolo <p-sortIcon field="role"></p-sortIcon></th>
+            <th pSortableColumn="value" style="width:20%">Valore <p-sortIcon field="value"></p-sortIcon></th>
+            <th pSortableColumn="dateOfBirth" style="width:20%">Data di nascita <p-sortIcon field="dateOfBirth"></p-sortIcon></th>
+            <th pSortableColumn="contractExpiration" style="width:20%">Scadenza di contratto <p-sortIcon field="contractExpiration"></p-sortIcon></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-player>
