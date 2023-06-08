@@ -16,6 +16,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { TeamComponent } from './pages/team/team/team.component';
 import { ProfileComponent } from './pages/profile/profile/profile.component';
 import { TableModule } from 'primeng/table';
+import { MillionPipe } from './pipes/million.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { TableModule } from 'primeng/table';
     LoginComponent,
     RegisterComponent,
     TeamComponent,
-    ProfileComponent
+    ProfileComponent,
+    MillionPipe
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,7 @@ import { TableModule } from 'primeng/table';
     FormsModule,
     HttpClientModule,
     AvatarModule,
-    TableModule
+    TableModule,
 
   ],
   providers: [AuthService],

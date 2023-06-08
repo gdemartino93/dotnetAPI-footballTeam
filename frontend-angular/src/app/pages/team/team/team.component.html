@@ -6,29 +6,6 @@
   </div>
   <div *ngIf="isArray(players)">
     I tuoi giocatori
-    <!-- <p-table [value]="players">
-      <ng-template pTemplate="header">
-          <tr>
-              <th>Nome</th>
-              <th>Cognome</th>
-              <th>Ruolo</th>
-              <th>Data di nascita</th>
-              <th>Scadenza di contratto</th>
-              <th>Valore</th>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-player>
-          <tr>
-              <td>{{ player.name }}</td>
-              <td>{{ player.lastname }}</td>
-              <td>{{ player.role }}</td>
-              <td>{{ player.dateOfBirth }}</td>
-              <td>{{ player.contractExpiration }}</td>
-              <td>{{ player.value }}</td>
-          </tr>
-      </ng-template>
-  </p-table> -->
-
   <p-table [value]="players" (sortFunction)="customSort($event)" [customSort]="true" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="header">
         <tr>
@@ -45,7 +22,7 @@
             <td>{{player.name}}</td>
             <td>{{player.lastname}}</td>
             <td>{{player.role}}</td>
-            <td>{{player.value | currency : 'EUR'}}</td>
+            <td>{{player.value | million | currency : 'EUR'}}</td>
             <td>{{player.dateOfBirth}}</td>
             <td>{{player.contractExpiration}}</td>
         </tr>
