@@ -1,11 +1,58 @@
-<div class="team-box-empty" *ngIf="players.length == 0">
-  <h2 class="text-center">
-    Non ci sono giocatori
-  </h2>
-</div>
-<div *ngIf="players.length > 0">
-  I tuoi giocatori
-  <div *ngFor="let player of players">
-    {{ player.name }}
+<div class="container">
+  <div class="team-box-empty" *ngIf="!isArray(players)">
+    <h2 class="text-center">
+      {{ players }}
+    </h2>
   </div>
+  <div *ngIf="isArray(players)">
+    I tuoi giocatori
+    <!-- <p-table [value]="players">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Nome</th>
+              <th>Cognome</th>
+              <th>Ruolo</th>
+              <th>Data di nascita</th>
+              <th>Scadenza di contratto</th>
+              <th>Valore</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-player>
+          <tr>
+              <td>{{ player.name }}</td>
+              <td>{{ player.lastname }}</td>
+              <td>{{ player.role }}</td>
+              <td>{{ player.dateOfBirth }}</td>
+              <td>{{ player.contractExpiration }}</td>
+              <td>{{ player.value }}</td>
+          </tr>
+      </ng-template>
+  </p-table> -->
+
+  <p-table [value]="players" (sortFunction)="customSort($event)" [customSort]="true" [tableStyle]="{'min-width': '60rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="code" style="width:20%">Nome <p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="name" style="width:20%">Cognome <p-sortIcon field="lastname"></p-sortIcon></th>
+            <th pSortableColumn="category" style="width:20%">Ruolo <p-sortIcon field="rol"></p-sortIcon></th>
+            <th pSortableColumn="category" style="width:20%">Valore <p-sortIcon field="value"></p-sortIcon></th>
+            <th pSortableColumn="quantity" style="width:20%">Data di nascita <p-sortIcon field="dateOfBirth"></p-sortIcon></th>
+            <th pSortableColumn="price" style="width:20%">Scadenza di contratto <p-sortIcon field="contractExpiration"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-player>
+        <tr>
+            <td>{{player.name}}</td>
+            <td>{{player.lastname}}</td>
+            <td>{{player.role}}</td>
+            <td>{{player.value | currency : 'EUR'}}</td>
+            <td>{{player.dateOfBirth}}</td>
+            <td>{{player.contractExpiration}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+  </div>
+
 </div>

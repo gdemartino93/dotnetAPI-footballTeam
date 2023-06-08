@@ -15,6 +15,7 @@ import { AuthService } from './services/auth/auth.service';
 import { AvatarModule } from 'primeng/avatar';
 import { TeamComponent } from './pages/team/team/team.component';
 import { ProfileComponent } from './pages/profile/profile/profile.component';
+import { TableModule } from 'primeng/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,8 @@ import { ProfileComponent } from './pages/profile/profile/profile.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    AvatarModule
+    AvatarModule,
+    TableModule
 
   ],
   providers: [AuthService],
